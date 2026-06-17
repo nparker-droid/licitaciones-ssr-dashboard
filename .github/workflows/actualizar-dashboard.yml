@@ -20,7 +20,7 @@ jobs:
       - name: Descargar datos actualizados desde Google Drive
         run: |
           curl -L \
-            "https://drive.google.com/uc?export=download&id=${{ secrets.GDRIVE_JSON_FILE_ID }}" \
+            "https://drive.usercontent.google.com/download?id=${{ secrets.GDRIVE_JSON_FILE_ID }}&export=download" \
             -o dashboard_data_fixed.json
 
       - name: Validar JSON descargado
