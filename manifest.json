@@ -1,0 +1,17 @@
+{
+  "name": "Dashboard Licitaciones SSR — Hidrogestión",
+  "short_name": "Licitaciones HDG",
+  "description": "Monitoreo de licitaciones de ingeniería SSR/APR en Mercado Público",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1B3A57",
+  "theme_color": "#2E75B6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Fondo círculo azul sólido -->
+  <circle cx="50" cy="50" r="50" fill="#2E75B6"/>
+
+  <!-- Documento (rectángulo con esquinas redondeadas) -->
+  <rect x="18" y="12" width="46" height="58" rx="5" ry="5"
+        fill="none" stroke="white" stroke-width="3.8"/>
+
+  <!-- Líneas de texto en el documento -->
+  <line x1="27" y1="27" x2="54" y2="27" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="27" y1="36" x2="54" y2="36" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="27" y1="45" x2="44" y2="45" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Círculo de la lupa (relleno azul para "tapar" el documento detrás) -->
+  <circle cx="60" cy="63" r="19" fill="#2E75B6" stroke="white" stroke-width="3.8"/>
+
+  <!-- Barras del gráfico dentro de la lupa -->
+  <rect x="49" y="65" width="5.5" height="10" rx="1" fill="white"/>
+  <rect x="57" y="58" width="5.5" height="17" rx="1" fill="white"/>
+  <rect x="65" y="62" width="5.5" height="13" rx="1" fill="white"/>
+
+  <!-- Mango de la lupa -->
+  <line x1="73" y1="77" x2="84" y2="88" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+</svg>
