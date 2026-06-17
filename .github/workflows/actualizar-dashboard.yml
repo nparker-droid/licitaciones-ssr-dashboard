@@ -1,0 +1,49 @@
+name: Actualizar Dashboard Licitaciones
+
+on:
+  schedule:
+    # Corre todos los días a las 14:00 UTC (11:00 Santiago, hora de invierno)
+    # Ajustar según cuándo corre el monitoreo de Cowork
+    - cron: '0 14 * * *'
+  workflow_dispatch:  # Permite lanzar manualmente desde GitHub Actions
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Necesario para hacer git push
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Descargar datos actualizados desde Google Drive
+        run: |
+          curl -L \
+            "https://drive.google.com/uc?export=download&id=${{ secrets.GDRIVE_JSON_FILE_ID }}" \
+            -o dashboard_data_fixed.json
+
+      - name: Validar JSON descargado
+        run: |
+          python3 -c "
+          import json, sys
+          with open('dashboard_data_fixed.json') as f:
+              data = json.load(f)
+          print(f'OK: {len(data)} licitaciones en el JSON descargado')
+          "
+
+      - name: Regenerar index.html
+        run: python3 regenerar_dashboard.py
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html dashboard_data_fixed.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios — el dashboard ya estaba actualizado."
+          else
+            git commit -m "Actualización automática licitaciones $(date -u +%Y-%m-%d)"
+            git push
+            echo "Dashboard actualizado y publicado en Vercel."
+          fi
