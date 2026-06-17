@@ -91,6 +91,10 @@
   .closing-cell .badge{ display:block; margin-top:4px; width:fit-content; }
   .monto-na{ color:var(--gray-400); font-size:11px; font-style:italic; }
 
+  .preguntas-cell .preguntas-row{ font-size:11.5px; margin-bottom:2px; color:var(--gray-700); }
+  .preguntas-cell .badge{ display:block; margin-top:4px; width:fit-content; }
+  .preguntas-na{ color:var(--gray-400); font-size:11px; font-style:italic; }
+
   tr.tr-avoid td{ background:#FCEEEC; }
   tr.tr-avoid td:first-child{ border-left:4px solid var(--red); }
   tr.tr-avoid:hover td{ background:#FAD9D5; }
@@ -129,12 +133,11 @@
 <script>
 const TENDERS = __DATA__;
 
-const CATEGORY_ORDER = ["Diseños SSR/APR", "Estudios Hidrogeológicos", "Estudio Tarifario", "AIF (Revisar)"];
+const CATEGORY_ORDER = ["Diseños SSR/APR", "Estudios Hidrogeológicos", "Estudio Tarifario"];
 const CATEGORY_ICON = {
   "Diseños SSR/APR": "📐",
   "Estudios Hidrogeológicos": "💧",
-  "Estudio Tarifario": "📊",
-  "AIF (Revisar)": "🛠️"
+  "Estudio Tarifario": "📊"
 };
 
 const AVOID_REGIONS = ["biobio", "coquimbo"];
@@ -173,6 +176,15 @@ function closingBadge(t){
   return `<span class="badge badge-green">Cierra en ${Math.ceil(d)} días</span>`;
 }
 
+function preguntasBadge(t){
+  const now = new Date();
+  if(!t.finicio_preguntas_iso) return `<span class="preguntas-na">No informado</span>`;
+  if(new Date(t.finicio_preguntas_iso) > now) return `<span class="badge badge-gray">No iniciado</span>`;
+  if(t.ffinal_preguntas_iso && new Date(t.ffinal_preguntas_iso) >= now) return `<span class="badge badge-orange">Preguntas abiertas</span>`;
+  if(t.frespuestas_iso && new Date(t.frespuestas_iso) >= now) return `<span class="badge badge-blue">Esperando respuestas</span>`;
+  return `<span class="badge badge-gray">Finalizado</span>`;
+}
+
 function estadoBadge(estado){
   const e = estado || "";
   if(/urgente/i.test(e)) return `<span class="badge badge-red">${e}</span>`;
@@ -207,6 +219,19 @@ const COLUMNS = [
     render: t => `<div class="closing-cell">${t.fcierre_raw}${closingBadge(t)}</div>`
   },
   {
+    key: "preguntas", label: "Preguntas / Resp.", sortable: true, filterable: false,
+    sortVal: t => t.ffinal_preguntas_iso || "",
+    render: t => {
+      if(!t.finicio_preguntas_raw) return `<span class="preguntas-na">No informado</span>`;
+      return `<div class="preguntas-cell">
+        <div class="preguntas-row">🗓 Ini: ${t.finicio_preguntas_raw}</div>
+        <div class="preguntas-row">⏱ Fin: ${t.ffinal_preguntas_raw}</div>
+        <div class="preguntas-row">📢 Resp: ${t.frespuestas_raw || "—"}</div>
+        ${preguntasBadge(t)}
+      </div>`;
+    }
+  },
+  {
     key: "monto", label: "Monto estimado", sortable: true, filterable: true,
     sortVal: t => (t.monto_num === null || t.monto_num === undefined) ? -1 : t.monto_num,
     filterVal: t => (t.monto_num ? fmtCLP(t.monto_num) : (t.monto_raw || "")).toLowerCase(),
@@ -229,18 +254,22 @@ const tableState = {};
 function catId(cat){ return cat.replace(/[^a-zA-Z0-9]/g, ""); }
 
 function renderKPIs(){
-  const total = TENDERS.length;
-  const montos = TENDERS.filter(t => t.monto_num);
+  const active = TENDERS.filter(t => CATEGORY_ORDER.includes(t.categoria));
+  const total = active.length;
+  const montos = active.filter(t => t.monto_num);
   const montoTotal = montos.reduce((s, t) => s + t.monto_num, 0);
-  const closing7 = TENDERS.filter(t => { const d = daysRemaining(t.fcierre_iso); return d !== null && d >= 0 && d <= 7; }).length;
-  const closing48 = TENDERS.filter(t => { const d = daysRemaining(t.fcierre_iso); return d !== null && d >= 0 && d <= 2; }).length;
-  const avoidCount = TENDERS.filter(t => isAvoidRegion(t.region)).length;
+  const closing7 = active.filter(t => { const d = daysRemaining(t.fcierre_iso); return d !== null && d >= 0 && d <= 7; }).length;
+  const closing48 = active.filter(t => { const d = daysRemaining(t.fcierre_iso); return d !== null && d >= 0 && d <= 2; }).length;
+  const avoidCount = active.filter(t => isAvoidRegion(t.region)).length;
+  const now = new Date();
+  const pregAbiertas = active.filter(t => t.finicio_preguntas_iso && t.ffinal_preguntas_iso && new Date(t.finicio_preguntas_iso) <= now && new Date(t.ffinal_preguntas_iso) >= now).length;
 
   const cards = [
     { label: "Licitaciones activas", value: total, sub: `${montos.length} con monto informado` },
     { label: "Monto total estimado", value: fmtCLP(montoTotal), sub: `Suma de ${montos.length} de ${total} licitaciones` },
     { label: "Cierran en ≤ 7 días", value: closing7, sub: "Requieren acción esta semana", alert: closing7 > 0 },
     { label: "Cierran en ≤ 48 h", value: closing48, sub: "Urgente — verificar factibilidad", alert: closing48 > 0 },
+    { label: "Preguntas abiertas", value: pregAbiertas, sub: "Período de preguntas vigente", alert: pregAbiertas > 0 },
     { label: "En regiones a evitar", value: avoidCount, sub: "Biobío / Coquimbo — fuera de foco prioritario", alert: avoidCount > 0 }
   ];
 
@@ -399,7 +428,7 @@ function renderMeta(){
   const ultima = fechas.length ? fechas.sort().reverse()[0] : "—";
   document.getElementById("meta-line").textContent = `Hidrogestión SpA · Monitoreo Mercado Público · Última actualización: ${ultima} · ${TENDERS.length} licitaciones en seguimiento`;
   document.getElementById("footer").innerHTML = `
-    <p>Generado automáticamente por el monitoreo diario de licitaciones de ingeniería SSR/APR en Mercado Público. No incluye licitaciones de construcción de obra (salvo AIF, incluidas por criterio conservador y marcadas "Revisar").</p>
+    <p>Generado automáticamente por el monitoreo diario de licitaciones de ingeniería SSR/APR en Mercado Público. No incluye licitaciones de construcción de obra ni AIF.</p>
     <p>Las filas resaltadas en rojo corresponden a licitaciones en regiones fuera del foco prioritario de Hidrogestión (Biobío, Coquimbo) — se mantienen en el listado por trazabilidad, no se excluyen automáticamente.</p>
     <p>El nivel de interés/prioridad de cada licitación es un criterio del equipo y no se incluye en este dashboard.</p>
   `;
