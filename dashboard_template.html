@@ -428,10 +428,11 @@ function renderCategories(){
   });
 }
 
+const FECHA_BARRIDO = "__FECHA_BARRIDO__";
+
 function renderMeta(){
-  const fechas = TENDERS.map(t => t.fdeteccion).filter(Boolean);
-  const ultima = fechas.length ? fechas.sort().reverse()[0] : "—";
-  document.getElementById("meta-line").textContent = `Hidrogestión SpA · Monitoreo Mercado Público · Última actualización: ${ultima} · ${TENDERS.length} licitaciones en seguimiento`;
+  const ultima = (FECHA_BARRIDO && FECHA_BARRIDO.indexOf("FECHA_BARRIDO") === -1) ? FECHA_BARRIDO : "—";
+  document.getElementById("meta-line").textContent = `Hidrogestión SpA · Monitoreo Mercado Público · Último barrido de MP: ${ultima} · ${TENDERS.length} licitaciones en seguimiento`;
   document.getElementById("footer").innerHTML = `
     <p>Generado automáticamente por el monitoreo diario de licitaciones de ingeniería SSR/APR en Mercado Público. No incluye licitaciones de construcción de obra ni AIF.</p>
     <p>Las filas resaltadas en rojo corresponden a licitaciones en regiones fuera del foco prioritario de Hidrogestión (Biobío, Coquimbo) — se mantienen en el listado por trazabilidad, no se excluyen automáticamente.</p>
