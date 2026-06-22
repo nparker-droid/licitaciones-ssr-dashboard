@@ -96,8 +96,8 @@
   .closing-cell .badge{ display:block; margin-top:4px; width:fit-content; }
   .monto-na{ color:var(--gray-400); font-size:11px; font-style:italic; }
 
-  .preguntas-cell .preguntas-row{ font-size:11.5px; margin-bottom:2px; color:var(--gray-700); }
-  .preguntas-cell .badge{ display:block; margin-top:4px; width:fit-content; }
+  .preguntas-cell .preguntas-row, .visita-cell .preguntas-row{ font-size:11.5px; margin-bottom:2px; color:var(--gray-700); }
+  .preguntas-cell .badge, .visita-cell .badge{ display:block; margin-top:4px; width:fit-content; }
   .preguntas-na{ color:var(--gray-400); font-size:11px; font-style:italic; }
 
   tr.tr-avoid td{ background:#FCEEEC; }
@@ -190,6 +190,14 @@ function fmtDiasHoras(ms){
   return `${d}d ${h}h`;
 }
 
+function parseDDMMYYYYHHmm(raw){
+  if(!raw) return null;
+  const m = raw.match(/^(\d{2})-(\d{2})-(\d{4})\s+(\d{2}):(\d{2})$/);
+  if(!m) return null;
+  const [, dd, mm, yyyy, hh, min] = m;
+  return new Date(`${yyyy}-${mm}-${dd}T${hh}:${min}:00`);
+}
+
 function preguntasBadge(t){
   const now = new Date();
   if(!t.finicio_preguntas_iso) return `<span class="preguntas-na">No informado</span>`;
@@ -212,51 +220,27 @@ function preguntasBadge(t){
   return `<span class="badge badge-gray">Esperando respuestas (sin fecha informada)</span>`;
 }
 
+function visitaTerrenoBadge(t){
+  const v = t.visita_terreno;
+  if(!v) return `<span class="preguntas-na">No informado</span>`;
+  if(v === "No exige") return `<span class="badge badge-gray">No exige</span>`;
+  const isOblig = v === "Obligatoria";
+  const cls = isOblig ? "badge-red" : "badge-blue";
+  const icon = isOblig ? "🔴" : "🔵";
+  let label = `${icon} ${v}`;
+  if(t.visita_terreno_fecha){
+    const d = parseDDMMYYYYHHmm(t.visita_terreno_fecha);
+    if(d && d.getTime() <= Date.now()) label += " (ya realizada)";
+  }
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
 function estadoBadge(estado){
   const e = estado || "";
   if(/urgente/i.test(e)) return `<span class="badge badge-red">${e}</span>`;
   if(/no participar|exclusi/i.test(e)) return `<span class="badge badge-gray">${e}</span>`;
   if(/alta relevancia/i.test(e)) return `<span class="badge badge-blue">${e}</span>`;
   return `<span class="badge badge-orange">${e}</span>`;
-}
-
-// Determina si la licitación exige visita a terreno y de qué tipo.
-// Prioriza un campo estructurado `visita_terreno` (si el monitoreo lo entrega);
-// en su defecto, parsea el texto de `observaciones`.
-function visitaTerrenoInfo(t){
-  const tieneEstructurado = !!t.visita_terreno;
-  const fuente = normalize(t.visita_terreno || t.observaciones || "");
-  // Valores estructurados que significan "sin dato"
-  if(tieneEstructurado && /no informad|no aplica|no indica|sin informaci|s\/i|n\/a/.test(fuente)){
-    return { tipo: null, realizada: false };
-  }
-  if(!tieneEstructurado && !fuente.includes("visita a terreno") && !fuente.includes("visita terreno")){
-    return { tipo: null, realizada: false };
-  }
-  const realizada = /realiz/.test(fuente);
-  if(/no\s+(exige|requiere|contempla|hay)/.test(fuente) || /sin visita/.test(fuente)){
-    return { tipo: "No exige", realizada: false };
-  }
-  if(fuente.includes("oblig")) return { tipo: "Obligatoria", realizada };
-  if(fuente.includes("opcion") || fuente.includes("volunt")) return { tipo: "Opcional", realizada };
-  return { tipo: "Exige", realizada };
-}
-
-function visitaBadge(t){
-  const info = visitaTerrenoInfo(t);
-  if(!info.tipo) return `<span class="preguntas-na">No indica</span>`;
-  const clsMap = { "Obligatoria":"badge-red", "Opcional":"badge-blue", "Exige":"badge-orange", "No exige":"badge-gray" };
-  const cls = clsMap[info.tipo] || "badge-gray";
-  let html = `<span class="badge ${cls}">${info.tipo === "Exige" ? "Exige visita" : info.tipo}</span>`;
-  const fechaRaw = t.visita_terreno_fecha;
-  if(fechaRaw){
-    const iso = isoFromDMY(fechaRaw);
-    const pasada = iso && new Date(iso) < new Date(new Date().toDateString());
-    html += `<div class="tender-meta" style="margin-top:3px;">📍 ${fechaRaw}${pasada ? " · ya realizada" : ""}</div>`;
-  } else if(info.realizada){
-    html += `<div class="tender-meta" style="margin-top:3px;">ya realizada</div>`;
-  }
-  return html;
 }
 
 const COLUMNS = [
@@ -302,9 +286,17 @@ const COLUMNS = [
     }
   },
   {
-    key: "visita", label: "Visita a terreno", sortable: true, filterable: false,
-    sortVal: t => { const i = visitaTerrenoInfo(t); return i.tipo === "Obligatoria" ? "1" : (i.tipo ? "2" : "3"); },
-    render: t => visitaBadge(t)
+    key: "visita", label: "Visita a terreno", sortable: true, filterable: true,
+    sortVal: t => t.visita_terreno || "",
+    filterVal: t => `${t.visita_terreno || ""} ${t.visita_terreno_fecha || ""}`.toLowerCase(),
+    render: t => {
+      if(!t.visita_terreno) return `<span class="preguntas-na">No informado</span>`;
+      if(t.visita_terreno === "No exige") return `<span class="badge badge-gray">No exige</span>`;
+      return `<div class="visita-cell">
+        <div class="preguntas-row">${t.visita_terreno_fecha || ""}</div>
+        ${visitaTerrenoBadge(t)}
+      </div>`;
+    }
   },
   {
     key: "monto", label: "Monto estimado", sortable: true, filterable: true,
