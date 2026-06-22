@@ -220,6 +220,34 @@ function estadoBadge(estado){
   return `<span class="badge badge-orange">${e}</span>`;
 }
 
+// Determina si la licitación exige visita a terreno y de qué tipo.
+// Prioriza un campo estructurado `visita_terreno` (si el monitoreo lo entrega);
+// en su defecto, parsea el texto de `observaciones`.
+function visitaTerrenoInfo(t){
+  const fuente = normalize(t.visita_terreno || t.observaciones || "");
+  const tieneEstructurado = !!t.visita_terreno;
+  if(!tieneEstructurado && !fuente.includes("visita a terreno") && !fuente.includes("visita terreno")){
+    return { tipo: null, realizada: false };
+  }
+  const realizada = /realiz/.test(fuente);
+  if(/no\s+(exige|requiere|contempla|hay)/.test(fuente) || /sin visita/.test(fuente)){
+    return { tipo: "No exige", realizada: false };
+  }
+  if(fuente.includes("oblig")) return { tipo: "Obligatoria", realizada };
+  if(fuente.includes("opcion") || fuente.includes("volunt")) return { tipo: "Opcional", realizada };
+  return { tipo: "Exige", realizada };
+}
+
+function visitaBadge(t){
+  const info = visitaTerrenoInfo(t);
+  if(!info.tipo) return `<span class="preguntas-na">No indica</span>`;
+  const clsMap = { "Obligatoria":"badge-red", "Opcional":"badge-blue", "Exige":"badge-orange", "No exige":"badge-gray" };
+  const cls = clsMap[info.tipo] || "badge-gray";
+  let html = `<span class="badge ${cls}">${info.tipo === "Exige" ? "Exige visita" : info.tipo}</span>`;
+  if(info.realizada) html += `<div class="tender-meta" style="margin-top:3px;">ya realizada</div>`;
+  return html;
+}
+
 const COLUMNS = [
   {
     key: "ngrupo", label: "N°", sortable: false, filterable: false,
@@ -261,6 +289,11 @@ const COLUMNS = [
         ${preguntasBadge(t)}
       </div>`;
     }
+  },
+  {
+    key: "visita", label: "Visita a terreno", sortable: true, filterable: false,
+    sortVal: t => { const i = visitaTerrenoInfo(t); return i.tipo === "Obligatoria" ? "1" : (i.tipo ? "2" : "3"); },
+    render: t => visitaBadge(t)
   },
   {
     key: "monto", label: "Monto estimado", sortable: true, filterable: true,
