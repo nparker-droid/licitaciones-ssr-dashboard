@@ -224,8 +224,12 @@ function estadoBadge(estado){
 // Prioriza un campo estructurado `visita_terreno` (si el monitoreo lo entrega);
 // en su defecto, parsea el texto de `observaciones`.
 function visitaTerrenoInfo(t){
-  const fuente = normalize(t.visita_terreno || t.observaciones || "");
   const tieneEstructurado = !!t.visita_terreno;
+  const fuente = normalize(t.visita_terreno || t.observaciones || "");
+  // Valores estructurados que significan "sin dato"
+  if(tieneEstructurado && /no informad|no aplica|no indica|sin informaci|s\/i|n\/a/.test(fuente)){
+    return { tipo: null, realizada: false };
+  }
   if(!tieneEstructurado && !fuente.includes("visita a terreno") && !fuente.includes("visita terreno")){
     return { tipo: null, realizada: false };
   }
@@ -244,7 +248,14 @@ function visitaBadge(t){
   const clsMap = { "Obligatoria":"badge-red", "Opcional":"badge-blue", "Exige":"badge-orange", "No exige":"badge-gray" };
   const cls = clsMap[info.tipo] || "badge-gray";
   let html = `<span class="badge ${cls}">${info.tipo === "Exige" ? "Exige visita" : info.tipo}</span>`;
-  if(info.realizada) html += `<div class="tender-meta" style="margin-top:3px;">ya realizada</div>`;
+  const fechaRaw = t.visita_terreno_fecha;
+  if(fechaRaw){
+    const iso = isoFromDMY(fechaRaw);
+    const pasada = iso && new Date(iso) < new Date(new Date().toDateString());
+    html += `<div class="tender-meta" style="margin-top:3px;">📍 ${fechaRaw}${pasada ? " · ya realizada" : ""}</div>`;
+  } else if(info.realizada){
+    html += `<div class="tender-meta" style="margin-top:3px;">ya realizada</div>`;
+  }
   return html;
 }
 
