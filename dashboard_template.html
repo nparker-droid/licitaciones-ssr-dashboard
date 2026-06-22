@@ -138,11 +138,13 @@
 <script>
 const TENDERS = __DATA__;
 
-const CATEGORY_ORDER = ["Diseños SSR/APR", "Estudios Hidrogeológicos", "Estudio Tarifario"];
+const ACTIVE_CATEGORIES = ["Diseños SSR/APR", "Estudios Hidrogeológicos", "Estudio Tarifario"];
+const CATEGORY_ORDER = [...ACTIVE_CATEGORIES, "Cerradas"];
 const CATEGORY_ICON = {
   "Diseños SSR/APR": "📐",
   "Estudios Hidrogeológicos": "💧",
-  "Estudio Tarifario": "📊"
+  "Estudio Tarifario": "📊",
+  "Cerradas": "🗄️"
 };
 
 const AVOID_REGIONS = ["biobio", "coquimbo"];
@@ -181,13 +183,33 @@ function closingBadge(t){
   return `<span class="badge badge-green">Cierra en ${Math.ceil(d)} días</span>`;
 }
 
+function fmtDiasHoras(ms){
+  const totalMin = Math.max(0, Math.floor(ms / 60000));
+  const d = Math.floor(totalMin / 1440);
+  const h = Math.floor((totalMin % 1440) / 60);
+  return `${d}d ${h}h`;
+}
+
 function preguntasBadge(t){
   const now = new Date();
   if(!t.finicio_preguntas_iso) return `<span class="preguntas-na">No informado</span>`;
-  if(new Date(t.finicio_preguntas_iso) > now) return `<span class="badge badge-gray">No iniciado</span>`;
-  if(t.ffinal_preguntas_iso && new Date(t.ffinal_preguntas_iso) >= now) return `<span class="badge badge-orange">Preguntas abiertas</span>`;
-  if(t.frespuestas_iso && new Date(t.frespuestas_iso) >= now) return `<span class="badge badge-blue">Esperando respuestas</span>`;
-  return `<span class="badge badge-gray">Finalizado</span>`;
+  const tIni = new Date(t.finicio_preguntas_iso);
+  const tFin = t.ffinal_preguntas_iso ? new Date(t.ffinal_preguntas_iso) : null;
+  const tResp = t.frespuestas_iso ? new Date(t.frespuestas_iso) : null;
+
+  if(tIni > now){
+    return `<span class="badge badge-gray">No iniciado (inicia en ${fmtDiasHoras(tIni - now)})</span>`;
+  }
+  if(tFin && tFin >= now){
+    return `<span class="badge badge-orange">Preguntas: quedan ${fmtDiasHoras(tFin - now)}</span>`;
+  }
+  if(tResp && tResp >= now){
+    return `<span class="badge badge-blue">Respuestas en ${Math.ceil(daysRemaining(t.frespuestas_iso))} día(s)</span>`;
+  }
+  if(tResp && tResp < now){
+    return `<span class="badge badge-green">Respuestas disponibles</span>`;
+  }
+  return `<span class="badge badge-gray">Esperando respuestas (sin fecha informada)</span>`;
 }
 
 function estadoBadge(estado){
@@ -199,6 +221,10 @@ function estadoBadge(estado){
 }
 
 const COLUMNS = [
+  {
+    key: "ngrupo", label: "N°", sortable: false, filterable: false,
+    render: t => `<strong>${t.n_grupo}</strong>`
+  },
   {
     key: "tender", label: "Licitación", sortable: true, filterable: true,
     sortVal: t => (t.nombre || "").toLowerCase(),
@@ -259,7 +285,7 @@ const tableState = {};
 function catId(cat){ return cat.replace(/[^a-zA-Z0-9]/g, ""); }
 
 function renderKPIs(){
-  const active = TENDERS.filter(t => CATEGORY_ORDER.includes(t.categoria));
+  const active = TENDERS.filter(t => t.categoria_display !== "Cerradas");
   const total = active.length;
   const montos = active.filter(t => t.monto_num);
   const montoTotal = montos.reduce((s, t) => s + t.monto_num, 0);
@@ -288,10 +314,10 @@ function renderKPIs(){
 
 function renderChart(){
   const byCat = {};
-  CATEGORY_ORDER.forEach(c => byCat[c] = 0);
-  TENDERS.forEach(t => { if(t.monto_num) byCat[t.categoria] = (byCat[t.categoria] || 0) + t.monto_num; });
+  ACTIVE_CATEGORIES.forEach(c => byCat[c] = 0);
+  TENDERS.forEach(t => { if(t.monto_num && t.categoria_display !== "Cerradas") byCat[t.categoria_display] = (byCat[t.categoria_display] || 0) + t.monto_num; });
   const max = Math.max(1, ...Object.values(byCat));
-  document.getElementById("chart").innerHTML = CATEGORY_ORDER.map(cat => {
+  document.getElementById("chart").innerHTML = ACTIVE_CATEGORIES.map(cat => {
     const v = byCat[cat] || 0;
     const pct = Math.round((v / max) * 100);
     return `<div class="chart-row">
@@ -319,7 +345,7 @@ function renderTabs(){
 
 function getFilteredSorted(cat){
   const st = tableState[cat];
-  let items = TENDERS.filter(t => t.categoria === cat);
+  let items = TENDERS.filter(t => t.categoria_display === cat);
   COLUMNS.forEach(col => {
     if(col.filterable && st.filters[col.key]){
       const needle = st.filters[col.key].toLowerCase();
@@ -349,7 +375,7 @@ function renderTbody(cat){
   const tbody = document.getElementById(`tbody-${id}`);
   if(!tbody) return;
   const items = getFilteredSorted(cat);
-  const totalForCat = TENDERS.filter(t => t.categoria === cat).length;
+  const totalForCat = TENDERS.filter(t => t.categoria_display === cat).length;
   tbody.innerHTML = items.length ? rowsHtml(items) : `<tr class="empty-row"><td colspan="${COLUMNS.length}">Sin resultados para el filtro aplicado.</td></tr>`;
   const countEl = document.getElementById(`count-${id}`);
   if(countEl) countEl.textContent = `${items.length} de ${totalForCat}`;
@@ -389,7 +415,7 @@ function buildCategoryTable(cat){
 
 function renderCategories(){
   const blocksHtml = CATEGORY_ORDER.map(cat => {
-    const items = TENDERS.filter(t => t.categoria === cat);
+    const items = TENDERS.filter(t => t.categoria_display === cat);
     if(items.length === 0) return "";
     const id = catId(cat);
     return `<div class="category-block" data-cat="${cat}">
@@ -404,7 +430,7 @@ function renderCategories(){
   container.innerHTML = blocksHtml;
 
   CATEGORY_ORDER.forEach(cat => {
-    const items = TENDERS.filter(t => t.categoria === cat);
+    const items = TENDERS.filter(t => t.categoria_display === cat);
     if(items.length === 0) return;
     tableState[cat] = { sortKey: null, sortDir: 1, filters: {} };
     renderTbody(cat);
@@ -434,7 +460,8 @@ function renderMeta(){
   const ultima = (FECHA_BARRIDO && FECHA_BARRIDO.indexOf("FECHA_BARRIDO") === -1) ? FECHA_BARRIDO : "—";
   document.getElementById("meta-line").textContent = `Hidrogestión SpA · Monitoreo Mercado Público · Último barrido de MP: ${ultima} · ${TENDERS.length} licitaciones en seguimiento`;
   document.getElementById("footer").innerHTML = `
-    <p>Generado automáticamente por el monitoreo diario de licitaciones de ingeniería SSR/APR en Mercado Público. No incluye licitaciones de construcción de obra ni AIF.</p>
+    <p>Generado automáticamente por el monitoreo diario de licitaciones de ingeniería SSR/APR en Mercado Público. No incluye licitaciones de construcción de obra ni de Asesoría a la Inspección Fiscal (AIF).</p>
+    <p>Las licitaciones cerradas permanecen visibles en la pestaña "Cerradas" durante 10 días desde su fecha de cierre; transcurrido ese plazo se retiran de este dashboard (se mantienen en la planilla maestra para trazabilidad).</p>
     <p>Las filas resaltadas en rojo corresponden a licitaciones en regiones fuera del foco prioritario de Hidrogestión (Biobío, Coquimbo) — se mantienen en el listado por trazabilidad, no se excluyen automáticamente.</p>
     <p>El nivel de interés/prioridad de cada licitación es un criterio del equipo y no se incluye en este dashboard.</p>
   `;
@@ -445,6 +472,14 @@ renderChart();
 renderTabs();
 renderCategories();
 renderMeta();
+
+// Actualiza contadores de días/horas (preguntas, cierre) cada 60 s sin recargar la página.
+// Solo refresca KPIs y el cuerpo de las tablas (no las cabeceras), preservando el orden/filtro
+// que el usuario haya aplicado y sin duplicar listeners.
+setInterval(() => {
+  renderKPIs();
+  CATEGORY_ORDER.forEach(cat => { if(tableState[cat]) renderTbody(cat); });
+}, 60000);
 </script>
 </body>
 </html>
