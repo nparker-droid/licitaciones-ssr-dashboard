@@ -92,6 +92,8 @@
   .drive-btn{ display:inline-block; background:#0F9D58; color:#fff; text-decoration:none; padding:8px 14px; border-radius:6px; font-weight:600; font-size:13px; }
   .drive-btn:hover{ background:#0b8043; }
   .post-nota{ font-size:12px; color:#5f6b7a; flex:1; min-width:220px; }
+  .todas-seccion{ margin-bottom:22px; }
+  .seccion-titulo{ font-size:14px; color:var(--blue-900,#1F3864); margin:0 0 8px; padding-bottom:4px; border-bottom:2px solid var(--blue-700,#2E75B6); }
   .category-header{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px; }
   .category-header h3{ margin:0; font-size:16px; color:var(--blue-900); }
   .category-count{ font-size:12px; color:var(--gray-400); }
@@ -202,19 +204,23 @@ const CATEGORY_ICON = {
   "Pasadas": "🗄️"
 };
 
-// Barra simplificada de pestañas: Todas · SSR (vigentes) · Postulaciones HDG.
+// Barra de pestañas. "Todas" se muestra en secciones por categoría; todas las vistas
+// (salvo Postulaciones) muestran solo licitaciones vigentes (aún abiertas, no cerradas).
 const TABS = ["Todas", "SSR", "Estudios Hidrogeológicos", POSTULACIONES];
 const TAB_TITULO = {
-  "Todas": "📂 Todas las licitaciones",
+  "Todas": "📂 Todas las licitaciones vigentes",
   "SSR": "🚰 SSR — licitaciones vigentes (aún se puede ofertar)",
-  "Estudios Hidrogeológicos": "💧 Estudios Hidrogeológicos",
+  "Estudios Hidrogeológicos": "💧 Estudios Hidrogeológicos (vigentes)",
   "Postulaciones HDG": "📋 Postulaciones HDG"
 };
+const TODAS_SECCIONES = ACTIVE_CATEGORIES; // secciones por categoría dentro de "Todas"
+function esVigente(t){ const d = daysRemaining(t.fcierre_iso); return d !== null && d >= 0; }
 function tabItems(tab){
   if(tab === POSTULACIONES) return TENDERS.filter(t => t.aplicamos === true);
-  if(tab === "SSR") return TENDERS.filter(t => { const d = daysRemaining(t.fcierre_iso); return d !== null && d >= 0; });
-  if(tab === "Estudios Hidrogeológicos") return TENDERS.filter(t => t.categoria === "Estudios Hidrogeológicos");
-  return TENDERS.slice();
+  if(tab === "SSR") return TENDERS.filter(esVigente);
+  if(tab === "Estudios Hidrogeológicos") return TENDERS.filter(t => esVigente(t) && t.categoria === "Estudios Hidrogeológicos");
+  if(tab.indexOf("Todas::") === 0){ const cat = tab.slice(7); return TENDERS.filter(t => esVigente(t) && t.categoria === cat); }
+  return TENDERS.filter(esVigente); // "Todas"
 }
 
 const AVOID_REGIONS = ["biobio", "coquimbo"];
@@ -640,6 +646,10 @@ function rowsHtml(items){
 
 function renderTbody(cat){
   if(cat === POSTULACIONES){ renderPostulacionesTbody(); return; }
+  if(cat === "Todas"){ TODAS_SECCIONES.forEach(scat => { const k = "Todas::" + scat; if(tableState[k]) renderTbodyTable(k); }); return; }
+  renderTbodyTable(cat);
+}
+function renderTbodyTable(cat){
   const id = catId(cat);
   const tbody = document.getElementById(`tbody-${id}`);
   if(!tbody) return;
@@ -687,14 +697,27 @@ function renderCategories(){
   // muestre siempre contenido coherente al seleccionarla.
   const blocksHtml = TABS.map(cat => {
     const isPost = cat === POSTULACIONES;
-    const items = tabItems(cat);
     const id = catId(cat);
-    const inner = isPost
-      ? buildPostulacionesTable()
-      : (items.length
-          ? buildCategoryTable(cat)
-          : `<div class="category-empty">Sin licitaciones para esta vista.</div>`);
-    const countTxt = isPost ? `${items.length} postulaci${items.length === 1 ? "ón" : "ones"}` : `${items.length} licitaci${items.length === 1 ? "ón" : "ones"}`;
+    let inner, countTxt;
+    if(isPost){
+      const items = tabItems(cat);
+      inner = buildPostulacionesTable();
+      countTxt = `${items.length} postulaci${items.length === 1 ? "ón" : "ones"}`;
+    } else if(cat === "Todas"){
+      const secciones = TODAS_SECCIONES.map(scat => {
+        const k = "Todas::" + scat;
+        const n = tabItems(k).length;
+        if(!n) return "";
+        return `<div class="todas-seccion"><h4 class="seccion-titulo">${CATEGORY_ICON[scat] || "📁"} ${scat} <span class="tab-count">(${n})</span></h4>${buildCategoryTable(k)}</div>`;
+      }).filter(Boolean).join("");
+      const total = tabItems("Todas").length;
+      inner = secciones || `<div class="category-empty">Sin licitaciones vigentes.</div>`;
+      countTxt = `${total} vigente${total === 1 ? "" : "s"}`;
+    } else {
+      const items = tabItems(cat);
+      inner = items.length ? buildCategoryTable(cat) : `<div class="category-empty">Sin licitaciones para esta vista.</div>`;
+      countTxt = `${items.length} licitaci${items.length === 1 ? "ón" : "ones"}`;
+    }
     return `<div class="category-block" data-cat="${cat}">
       <div class="category-header">
         <h3>${TAB_TITULO[cat] || cat}</h3>
@@ -706,10 +729,9 @@ function renderCategories(){
   const container = document.getElementById("categories");
   container.innerHTML = blocksHtml;
 
-  TABS.forEach(cat => {
-    tableState[cat] = { sortKey: null, sortDir: 1, filters: {} };
-    renderTbody(cat);
-  });
+  const allKeys = TABS.flatMap(cat => cat === "Todas" ? TODAS_SECCIONES.map(s => "Todas::" + s) : [cat]);
+  allKeys.forEach(k => { tableState[k] = { sortKey: null, sortDir: 1, filters: {} }; });
+  TABS.forEach(cat => renderTbody(cat));
 
   container.addEventListener("click", e => {
     const tog = e.target.closest(".oferentes-toggle");
@@ -780,7 +802,7 @@ renderMeta();
 // preservando orden/filtros aplicados y sin duplicar listeners.
 setInterval(() => {
   renderUrgentes();
-  TABS.forEach(cat => { if(tableState[cat]) renderTbody(cat); });
+  TABS.forEach(cat => renderTbody(cat));
 }, 60000);
 </script>
 </body>
