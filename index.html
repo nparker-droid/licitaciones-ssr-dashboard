@@ -203,15 +203,17 @@ const CATEGORY_ICON = {
 };
 
 // Barra simplificada de pestañas: Todas · SSR (vigentes) · Postulaciones HDG.
-const TABS = ["Todas", "SSR", POSTULACIONES];
+const TABS = ["Todas", "SSR", "Estudios Hidrogeológicos", POSTULACIONES];
 const TAB_TITULO = {
   "Todas": "📂 Todas las licitaciones",
-  "SSR": "💧 SSR — licitaciones vigentes (aún se puede ofertar)",
+  "SSR": "🚰 SSR — licitaciones vigentes (aún se puede ofertar)",
+  "Estudios Hidrogeológicos": "💧 Estudios Hidrogeológicos",
   "Postulaciones HDG": "📋 Postulaciones HDG"
 };
 function tabItems(tab){
   if(tab === POSTULACIONES) return TENDERS.filter(t => t.aplicamos === true);
   if(tab === "SSR") return TENDERS.filter(t => { const d = daysRemaining(t.fcierre_iso); return d !== null && d >= 0; });
+  if(tab === "Estudios Hidrogeológicos") return TENDERS.filter(t => t.categoria === "Estudios Hidrogeológicos");
   return TENDERS.slice();
 }
 
