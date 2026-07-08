@@ -212,7 +212,11 @@
   "visita_terreno_fecha": "02-06-2026 11:00",
   "aplicamos": true,
   "resultado_hdg": "Pendiente",
-  "oferentes": []
+  "oferentes": [
+   {"nombre": "ARRAVAL SpA", "monto": null, "adjudicado": false},
+   {"nombre": "Hidrogestión SpA", "monto": null, "adjudicado": false},
+   {"nombre": "Cuatro C Consultores en Ingeniería Civil Ltda.", "monto": null, "adjudicado": false}
+  ]
  },
  {
   "id": "1507-8-O126",
