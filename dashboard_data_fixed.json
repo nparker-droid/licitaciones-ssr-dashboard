@@ -209,7 +209,10 @@
   "categoria_display": "Apertura Oferta Económica",
   "n_grupo": 4,
   "visita_terreno": "Opcional",
-  "visita_terreno_fecha": "02-06-2026 11:00"
+  "visita_terreno_fecha": "02-06-2026 11:00",
+  "aplicamos": true,
+  "resultado_hdg": "Pendiente",
+  "oferentes": []
  },
  {
   "id": "1507-8-O126",
@@ -419,8 +422,8 @@
   "fapertura_economica_iso": "2026-07-08T12:10:00",
   "fadjudicacion_raw": "22-07-2026 18:00",
   "fadjudicacion_iso": "2026-07-22T18:00:00",
-  "categoria_display": "Estudios Hidrogeológicos",
-  "n_grupo": 1,
+  "categoria_display": "Resultados",
+  "n_grupo": 9,
   "visita_terreno": "No exige"
  },
  {
@@ -491,7 +494,7 @@
   "fadjudicacion_raw": "11-09-2026 12:15",
   "fadjudicacion_iso": "2026-09-11T12:15:00",
   "categoria_display": "Estudios Hidrogeológicos",
-  "n_grupo": 2,
+  "n_grupo": 1,
   "visita_terreno": "No exige"
  },
  {

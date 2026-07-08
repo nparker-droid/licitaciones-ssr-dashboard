@@ -41,6 +41,17 @@
   .kpi-card .kpi-value.alert{ color:var(--red); }
   .kpi-card .kpi-sub{ font-size:11px; color:var(--gray-400); margin-top:4px; }
 
+  .urgent-card{
+    background:var(--white); border:1px solid var(--gray-200); border-left:4px solid var(--red);
+    border-radius:8px; padding:14px 18px; margin-bottom:24px; display:none;
+  }
+  .urgent-card h2{ margin:0 0 8px; font-size:14px; color:var(--red); }
+  .urgent-row{ display:flex; gap:12px; align-items:flex-start; padding:8px 0; border-bottom:1px solid var(--gray-100); font-size:12.5px; }
+  .urgent-row:last-child{ border-bottom:none; }
+  .urgent-ms{ flex-shrink:0; min-width:86px; text-align:center; padding-top:1px; }
+  .urgent-body a{ color:var(--blue-900); font-weight:bold; text-decoration:none; }
+  .urgent-body a:hover{ text-decoration:underline; }
+
   .chart-card{
     background:var(--white); border:1px solid var(--gray-200); border-radius:8px; padding:18px 20px; margin-bottom:24px;
   }
@@ -51,21 +62,40 @@
   .chart-row .chart-bar{ height:100%; background:var(--blue-700); border-radius:4px; }
   .chart-row .chart-value{ width:120px; text-align:right; flex-shrink:0; font-weight:bold; color:var(--blue-900); }
 
+  .search-bar{ margin-bottom:14px; }
+  #global-search{
+    width:100%; max-width:560px; padding:9px 12px; border:1px solid var(--gray-200); border-radius:8px;
+    font-size:13px; font-family:inherit; background:var(--white);
+  }
+  #global-search:focus{ outline:none; border-color:var(--blue-700); box-shadow:0 0 0 2px rgba(46,117,182,0.15); }
+
   .tabs{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
   .tab-btn{
     background:var(--white); border:1px solid var(--gray-200); border-radius:20px; padding:7px 16px;
     font-size:12px; cursor:pointer; color:var(--gray-700);
   }
   .tab-btn.active{ background:var(--blue-700); color:var(--white); border-color:var(--blue-700); }
+  .tab-btn .tab-count{ opacity:.7; }
 
   .category-block{ margin-bottom:28px; }
   .category-block.hidden{ display:none; }
+  /* Pestaña Postulaciones HDG */
+  tr.post-detail{ display:none; }
+  tr.post-detail.open{ display:table-row; }
+  .oferentes-toggle{ background:var(--blue-700,#2E75B6); color:#fff; border:none; padding:4px 9px; border-radius:5px; cursor:pointer; font-size:12px; white-space:nowrap; }
+  .oferentes-toggle.open{ background:var(--blue-900,#1F3864); }
+  .ofer-box{ padding:6px 4px; display:flex; flex-direction:column; gap:4px; }
+  .ofer-row{ display:flex; align-items:center; gap:10px; padding:5px 9px; background:var(--gray-50,#f6f8fc); border-radius:5px; }
+  .ofer-name{ flex:1; font-weight:600; }
+  .ofer-monto{ font-variant-numeric:tabular-nums; color:var(--blue-900,#1F3864); font-weight:600; }
   .category-header{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px; }
   .category-header h3{ margin:0; font-size:16px; color:var(--blue-900); }
   .category-count{ font-size:12px; color:var(--gray-400); }
+  .category-empty{ background:var(--white); border:1px dashed var(--gray-200); border-radius:8px; padding:18px; text-align:center; color:var(--gray-400); font-size:12.5px; font-style:italic; }
 
+  .table-wrap{ overflow-x:visible; }
   table.tenders{ width:100%; border-collapse:collapse; background:var(--white); border:1px solid var(--gray-200); border-radius:8px; overflow:hidden; font-size:12.5px; }
-  table.tenders thead tr.header-row th{ background:var(--blue-900); color:var(--white); text-align:left; padding:9px 10px; font-weight:bold; white-space:nowrap; }
+  table.tenders thead tr.header-row th{ background:var(--blue-900); color:var(--white); text-align:left; padding:9px 10px; font-weight:bold; white-space:nowrap; position:sticky; top:0; z-index:2; }
   table.tenders thead tr.filter-row td{ background:var(--gray-50); padding:6px 8px; border-bottom:2px solid var(--blue-700); }
   table.tenders td{ padding:9px 10px; border-bottom:1px solid var(--gray-100); vertical-align:top; }
   table.tenders tbody tr:hover td{ background:var(--gray-50); }
@@ -94,6 +124,8 @@
   .badge-avoid{ background:var(--red-bg); color:var(--red); margin-top:3px; }
 
   .closing-cell .badge{ display:block; margin-top:4px; width:fit-content; }
+  .hito-next{ font-size:11.5px; color:var(--gray-700); margin-top:5px; }
+  .hito-next .badge{ display:inline-block; margin-top:2px; }
   .monto-na{ color:var(--gray-400); font-size:11px; font-style:italic; }
 
   .preguntas-cell .preguntas-row{ font-size:11.5px; margin-bottom:2px; color:var(--gray-700); }
@@ -111,6 +143,17 @@
 
   footer.app-footer{ font-size:11px; color:var(--gray-400); padding:18px 28px; border-top:1px solid var(--gray-200); }
   footer.app-footer p{ margin:3px 0; }
+
+  @media (max-width: 900px){
+    main{ padding:16px 12px 40px; }
+    header.app-header{ padding:14px 16px; }
+    header.app-header h1{ font-size:17px; }
+    .chart-row .chart-label{ width:120px; }
+    .chart-row .chart-value{ width:96px; }
+    .table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    table.tenders{ min-width:920px; }
+    table.tenders thead tr.header-row th{ position:static; }
+  }
 </style>
 </head>
 <body>
@@ -123,9 +166,15 @@
 <main>
   <div class="kpi-grid" id="kpi-grid"></div>
 
+  <div class="urgent-card" id="urgentes"></div>
+
   <div class="chart-card">
-    <h2>Monto estimado por categoría</h2>
+    <h2>Monto estimado en seguimiento por categoría (todas las etapas, excluye Pasadas)</h2>
     <div id="chart"></div>
+  </div>
+
+  <div class="search-bar">
+    <input id="global-search" type="search" placeholder="🔎 Buscar en todas las etapas: nombre, entidad, ID, región, comuna, estado...">
   </div>
 
   <div class="tabs" id="tabs"></div>
@@ -136,15 +185,24 @@
 <footer class="app-footer" id="footer"></footer>
 
 <script>
-const TENDERS = [{"id": "817-9-O126", "nombre": "Estudio Hidrogeológico (Geofísico) SSR Pilmaiquen, comuna de Puyehue", "entidad": "MOP - Dirección de Obras Hidráulicas, X Región", "region": "Los Lagos", "comuna": "Puyehue", "categoria": "Estudios Hidrogeológicos", "interes": "Medio", "fpub": "03-06-2026", "fcierre_raw": "24-06-2026 14:30", "fcierre_iso": "2026-06-24T14:30:00", "monto_raw": "$26.890.756 (Suma Alzada)", "monto_num": 26890756, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=817-9-O126", "estado": "Revisar", "observaciones": "Estudio hidrogeológico complementario a SSR existente; categoría DOH Estudios Básicos, alineado a especialidad de Hidrogestión. Cierra en 7 días desde detección.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "03-06-2026 08:01", "finicio_preguntas_iso": "2026-06-03T08:01:00", "ffinal_preguntas_raw": "10-06-2026 16:00", "ffinal_preguntas_iso": "2026-06-10T16:00:00", "frespuestas_raw": "17-06-2026 16:00", "frespuestas_iso": "2026-06-17T16:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "24-06-2026 15:00", "fapertura_tecnica_iso": "2026-06-24T15:00:00", "fapertura_economica_raw": "02-07-2026 15:00", "fapertura_economica_iso": "2026-07-02T15:00:00", "fadjudicacion_raw": "20-07-2026 16:00", "fadjudicacion_iso": "2026-07-20T16:00:00", "categoria_display": "Resultados", "n_grupo": 5, "visita_terreno": "No exige"}, {"id": "5661-26-O126", "nombre": "EH Grupo 1 SSR Tringlo A - Ensenada Lago Ranco, 2do Llamado", "entidad": "MOP - Dirección de Obras Hidráulicas, XIV Región", "region": "Los Ríos", "comuna": "Lago Ranco (sector Tringlo A-Ensenada)", "categoria": "Estudios Hidrogeológicos", "interes": "Medio", "fpub": "01-06-2026", "fcierre_raw": "24-06-2026 09:59", "fcierre_iso": "2026-06-24T09:59:00", "monto_raw": "$21.182.000 (Suma alzada y Precios Unitarios)", "monto_num": 21182000, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=5661-26-O126", "estado": "Revisar", "observaciones": "Segundo llamado (probable primer llamado desierto). CORRECCIÓN 25-06-2026: fcierre_raw corregido a '24-06-2026 09:59'.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "01-06-2026 14:00", "finicio_preguntas_iso": "2026-06-01T14:00:00", "ffinal_preguntas_raw": "08-06-2026 15:00", "ffinal_preguntas_iso": "2026-06-08T15:00:00", "frespuestas_raw": "17-06-2026 18:00", "frespuestas_iso": "2026-06-17T18:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "24-06-2026 10:00", "fapertura_tecnica_iso": "2026-06-24T10:00:00", "fapertura_economica_raw": "01-07-2026 10:00", "fapertura_economica_iso": "2026-07-01T10:00:00", "fadjudicacion_raw": "26-08-2026 12:01", "fadjudicacion_iso": "2026-08-26T12:01:00", "categoria_display": "Resultados", "n_grupo": 3, "visita_terreno": "No exige"}, {"id": "1503-3-O126", "nombre": "Diseño Planta Desalinizadora SSR El Esfuerzo, segundo llamado", "entidad": "MOP - Dirección de Obras Hidráulicas, IV Región", "region": "Coquimbo", "comuna": "No especificada en ficha (verificar TdR)", "categoria": "Diseños SSR/APR", "interes": "Medio", "fpub": "24-03-2026", "fcierre_raw": "25-06-2026 09:00", "fcierre_iso": "2026-06-25T09:00:00", "monto_raw": "No informado en ficha pública", "monto_num": null, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1503-3-O126", "estado": "Revisar", "observaciones": "Segundo llamado; incluye EIA. Visita a terreno obligatoria ya realizada (17-04-2026).", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "24-03-2026 15:05", "finicio_preguntas_iso": "2026-03-24T15:05:00", "ffinal_preguntas_raw": "04-05-2026 12:00", "ffinal_preguntas_iso": "2026-05-04T12:00:00", "frespuestas_raw": "29-05-2026 15:00", "frespuestas_iso": "2026-05-29T15:00:00", "estado_mp": "Desierta (o art. 3 ó 9 Ley 19.886)", "fapertura_tecnica_raw": "25-06-2026 12:30", "fapertura_tecnica_iso": "2026-06-25T12:30:00", "fapertura_economica_raw": "09-07-2026 10:30", "fapertura_economica_iso": "2026-07-09T10:30:00", "fadjudicacion_raw": "27-07-2026 17:00", "fadjudicacion_iso": "2026-07-27T17:00:00", "categoria_display": "Apertura Oferta Económica", "n_grupo": 1, "visita_terreno": "Obligatoria", "visita_terreno_fecha": "17-04-2026 10:00"}, {"id": "1505-10-O126", "nombre": "Diseño Mejoramiento y Ampliación SSR Licancheu – Matanzas – La Vega de Pupuya", "entidad": "MOP - Dirección de Obras Hidráulicas, VI Región", "region": "O'Higgins", "comuna": "Navidad", "categoria": "Diseños SSR/APR", "interes": "Alto", "fpub": "15-06-2026", "fcierre_raw": "06-07-2026 15:00", "fcierre_iso": "2026-07-06T15:00:00", "monto_raw": "$217.627.200 (Suma Alzada)", "monto_num": 217627200, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1505-10-O126", "estado": "Revisar", "observaciones": "Publicación muy reciente (15-06-2026); detección oportuna a 2 días de publicada. ACTUALIZACIÓN 07-07-2026 (Paso 4-bis): ficha MP indica estado Desierta (o art. 3 ó 9 Ley 19.886) tras el cierre del 06-07-2026 — probable segundo llamado futuro, monitorear.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "15-06-2026 11:15", "finicio_preguntas_iso": "2026-06-15T11:15:00", "ffinal_preguntas_raw": "25-06-2026 12:00", "ffinal_preguntas_iso": "2026-06-25T12:00:00", "frespuestas_raw": "29-06-2026 17:00", "frespuestas_iso": "2026-06-29T17:00:00", "estado_mp": "Desierta (o art. 3 ó 9 Ley 19.886)", "fapertura_tecnica_raw": "06-07-2026 15:30", "fapertura_tecnica_iso": "2026-07-06T15:30:00", "fapertura_economica_raw": "13-07-2026 15:30", "fapertura_economica_iso": "2026-07-13T15:30:00", "fadjudicacion_raw": "10-09-2026 17:00", "fadjudicacion_iso": "2026-09-10T17:00:00", "categoria_display": "Apertura Oferta Económica", "n_grupo": 3, "visita_terreno": "No exige"}, {"id": "1507-5-O126", "nombre": "Diseño de Ingeniería Mejoramiento y Ampliación SSR Reposo, comuna de Cañete", "entidad": "MOP - Dirección de Obras Hidráulicas, VIII Región", "region": "Biobío", "comuna": "Cañete", "categoria": "Diseños SSR/APR", "interes": "Bajo", "fpub": "01-06-2026", "fcierre_raw": "18-06-2026 15:01", "fcierre_iso": "2026-06-18T15:01:00", "monto_raw": "$148.988.000 (Suma alzada y Precios Unitarios)", "monto_num": 148988000, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1507-5-O126", "estado": "Revisar - URGENTE", "observaciones": "URGENTE: cierra mañana (18-06-2026), 1 día desde la fecha de detección.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "01-06-2026 09:00", "finicio_preguntas_iso": "2026-06-01T09:00:00", "ffinal_preguntas_raw": "07-06-2026 14:00", "ffinal_preguntas_iso": "2026-06-07T14:00:00", "frespuestas_raw": "12-06-2026 15:00", "frespuestas_iso": "2026-06-12T15:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "18-06-2026 15:01", "fapertura_tecnica_iso": "2026-06-18T15:01:00", "fapertura_economica_raw": "06-07-2026 15:01", "fapertura_economica_iso": "2026-07-06T15:01:00", "fadjudicacion_raw": "03-08-2026 14:10", "fadjudicacion_iso": "2026-08-03T14:10:00", "categoria_display": "Resultados", "n_grupo": 1, "visita_terreno": "No exige"}, {"id": "1502-5-O126", "nombre": "Diseño Mejoramiento SSR El Jilguero", "entidad": "MOP - Dirección de Obras Hidráulicas, III Región", "region": "Atacama", "comuna": "Vallenar", "categoria": "Diseños SSR/APR", "interes": "Alto", "fpub": "28-05-2026", "fcierre_raw": "07-07-2026 09:00", "fcierre_iso": "2026-07-07T09:00:00", "monto_raw": "$178.437.525", "monto_num": 178437525, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1502-5-O126", "estado": "Revisar", "observaciones": "Visita a terreno opcional ya realizada (02-06-2026); revisar acta de aclaraciones antes de ofertar.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "28-05-2026 15:18", "finicio_preguntas_iso": "2026-05-28T15:18:00", "ffinal_preguntas_raw": "09-06-2026 15:10", "ffinal_preguntas_iso": "2026-06-09T15:10:00", "frespuestas_raw": "16-06-2026 17:00", "frespuestas_iso": "2026-06-16T17:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "07-07-2026 10:00", "fapertura_tecnica_iso": "2026-07-07T10:00:00", "fapertura_economica_raw": "14-07-2026 10:00", "fapertura_economica_iso": "2026-07-14T10:00:00", "fadjudicacion_raw": "28-07-2026 13:00", "fadjudicacion_iso": "2026-07-28T13:00:00", "categoria_display": "Apertura Oferta Económica", "n_grupo": 4, "visita_terreno": "Opcional", "visita_terreno_fecha": "02-06-2026 11:00"}, {"id": "1507-8-O126", "nombre": "Diseño Mejoramiento y Ampliación SSR de Santa Fe, comuna de Los Ángeles", "entidad": "MOP - Dirección de Obras Hidráulicas, VIII Región", "region": "Biobío", "comuna": "Los Ángeles", "categoria": "Diseños SSR/APR", "interes": "Alto", "fpub": "15-06-2026", "fcierre_raw": "03-07-2026 15:01", "fcierre_iso": "2026-07-03T15:01:00", "monto_raw": "$161.959.000 (Suma alzada y Precios Unitarios)", "monto_num": 161959000, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1507-8-O126", "estado": "Revisar", "observaciones": "Publicación muy reciente (15-06-2026); mismas bases tipo que 1507-5-O126 (misma DOH VIII Región).", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "15-06-2026 15:28", "finicio_preguntas_iso": "2026-06-15T15:28:00", "ffinal_preguntas_raw": "22-06-2026 23:59", "ffinal_preguntas_iso": "2026-06-22T23:59:00", "frespuestas_raw": "30-06-2026 15:00", "frespuestas_iso": "2026-06-30T15:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "03-07-2026 15:01", "fapertura_tecnica_iso": "2026-07-03T15:01:00", "fapertura_economica_raw": "13-07-2026 15:01", "fapertura_economica_iso": "2026-07-13T15:01:00", "fadjudicacion_raw": "10-08-2026 15:29", "fadjudicacion_iso": "2026-08-10T15:29:00", "categoria_display": "Apertura Oferta Económica", "n_grupo": 2, "visita_terreno": "No exige"}, {"id": "1593-11-LP26", "nombre": "Estudio de Determinación Tarifaria 2026 e Implementación del Régimen Tarifario en SSR", "entidad": "Superintendencia de Servicios Sanitarios (SISS)", "region": "Metropolitana (alcance nacional, 204 SSR)", "comuna": "Santiago (sede; alcance nacional)", "categoria": "Estudio Tarifario", "interes": "Medio-Alto", "fpub": "02-06-2026", "fcierre_raw": "22-06-2026 15:01", "fcierre_iso": "2026-06-22T15:01:00", "monto_raw": "$250.000.000", "monto_num": 250000000, "plazo": "325 días", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1593-11-LP26", "estado": "Revisar - ALTA RELEVANCIA", "observaciones": "Licitación nacional (204 SSR a tarificar), monto y plazo significativos. Verificar perfiles profesionales exigidos (especialidad regulatoria/tarifaria).", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "02-06-2026 13:30", "finicio_preguntas_iso": "2026-06-02T13:30:00", "ffinal_preguntas_raw": "10-06-2026 13:00", "ffinal_preguntas_iso": "2026-06-10T13:00:00", "frespuestas_raw": "15-06-2026 18:00", "frespuestas_iso": "2026-06-15T18:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "22-06-2026 15:02", "fapertura_tecnica_iso": "2026-06-22T15:02:00", "fapertura_economica_raw": "06-07-2026 18:00", "fapertura_economica_iso": "2026-07-06T18:00:00", "fadjudicacion_raw": "14-07-2026 18:00", "fadjudicacion_iso": "2026-07-14T18:00:00", "categoria_display": "Resultados", "n_grupo": 2, "visita_terreno": "No exige"}, {"id": "840405-7-LE26", "nombre": "Estudio Hidrogeológico y de Prospección Geofísica Sector Santa Ester", "entidad": "I. Municipalidad de Río Claro", "region": "Maule", "comuna": "Río Claro (sector Santa Ester)", "categoria": "Estudios Hidrogeológicos", "interes": "Bajo-Medio", "fpub": "01-06-2026", "fcierre_raw": "24-06-2026 13:00", "fcierre_iso": "2026-06-24T13:00:00", "monto_raw": "Monto no informado (financiamiento SUBDERE PMB); garantía de seriedad $100.000 — no es el monto del contrato", "monto_num": null, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=840405-7-LE26", "estado": "Revisar", "observaciones": "Financiado por SUBDERE PMB, típico en estudios municipales de agua rural. Visita a terreno obligatoria ya realizada (05-06-2026).", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "01-06-2026 18:28", "finicio_preguntas_iso": "2026-06-01T18:28:00", "ffinal_preguntas_raw": "06-06-2026 13:00", "ffinal_preguntas_iso": "2026-06-06T13:00:00", "frespuestas_raw": "11-06-2026 22:00", "frespuestas_iso": "2026-06-11T22:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "24-06-2026 13:05", "fapertura_tecnica_iso": "2026-06-24T13:05:00", "fapertura_economica_raw": "24-06-2026 13:05", "fapertura_economica_iso": "2026-06-24T13:05:00", "fadjudicacion_raw": "15-07-2026 15:58", "fadjudicacion_iso": "2026-07-15T15:58:00", "categoria_display": "Resultados", "n_grupo": 4, "visita_terreno": "Obligatoria", "visita_terreno_fecha": "05-06-2026 10:30"}, {"id": "3676-18-LP26", "nombre": "Diseño Mejoramiento Sistema Agua Potable Rural Calle Larga", "entidad": "I. Municipalidad de Petorca", "region": "Valparaíso", "comuna": "Petorca", "categoria": "Diseños SSR/APR", "interes": "Alto", "fpub": "15-06-2026", "fcierre_raw": "03-07-2026 15:30", "fcierre_iso": "2026-07-03T15:30:00", "monto_raw": "$132.598.000 (financiamiento GORE Valparaíso, FNDR)", "monto_num": 132598000, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=3676-18-LP26", "estado": "Revisar", "observaciones": "Exige inscripción en Registro de Consultores MOP 2da categoría Esp. 4.8 Obras Sanitarias. Visita a terreno obligatoria 19-06-2026 12:00 (ya realizada). ACTUALIZACIÓN 06-07-2026: ficha MP muestra fecha de cierre real extendida a 06-07-2026 15:30 (columna Fecha de Cierre no se actualiza retroactivamente; categoria_display sigue calculándose mecánicamente sobre la fecha originalmente registrada 03-07-2026) — verificar manualmente antes de asumir que ya hubo apertura técnica. ACTUALIZACIÓN 07-07-2026 (Paso 4-bis): ficha confirma estado Cerrada; aperturas técnica/económica registradas el 06-07-2026 15:40.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "16-06-2026 09:00", "finicio_preguntas_iso": "2026-06-16T09:00:00", "ffinal_preguntas_raw": "22-06-2026 22:30", "ffinal_preguntas_iso": "2026-06-22T22:30:00", "frespuestas_raw": "26-06-2026 18:00", "frespuestas_iso": "2026-06-26T18:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "06-07-2026 15:40", "fapertura_tecnica_iso": "2026-07-06T15:40:00", "fapertura_economica_raw": "06-07-2026 15:40", "fapertura_economica_iso": "2026-07-06T15:40:00", "fadjudicacion_raw": "17-07-2026 18:30", "fadjudicacion_iso": "2026-07-17T18:30:00", "categoria_display": "Resultados", "n_grupo": 8, "visita_terreno": "Obligatoria", "visita_terreno_fecha": "19-06-2026 12:00"}, {"id": "817-11-O126", "nombre": "Diseño de Ingeniería para el SSR El Límite, comuna de Futaleufú", "entidad": "MOP - Dirección de Obras Hidráulicas, X Región", "region": "Los Lagos", "comuna": "Futaleufú", "categoria": "Diseños SSR/APR", "interes": "Medio", "fpub": "18-06-2026", "fcierre_raw": "10-07-2026 14:30", "fcierre_iso": "2026-07-10T14:30:00", "monto_raw": "$84.033.613 (Suma Alzada y Precios Unitarios)", "monto_num": 84033613, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=817-11-O126", "estado": "Revisar", "observaciones": "Diseño DS48 puro para nuevo SSR en Futaleufú (Patagonia, Los Lagos). Monto moderado (~$84 MM) y ubicación remota con alto costo de movilización.", "fdeteccion": "19-06-2026", "finicio_preguntas_raw": "18-06-2026 12:16", "finicio_preguntas_iso": "2026-06-18T12:16:00", "ffinal_preguntas_raw": "25-06-2026 16:00", "ffinal_preguntas_iso": "2026-06-25T16:00:00", "frespuestas_raw": "03-07-2026 16:00", "frespuestas_iso": "2026-07-03T16:00:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "10-07-2026 15:00", "fapertura_tecnica_iso": "2026-07-10T15:00:00", "fapertura_economica_raw": "20-07-2026 16:00", "fapertura_economica_iso": "2026-07-20T16:00:00", "fadjudicacion_raw": "14-08-2026 16:00", "fadjudicacion_iso": "2026-08-14T16:00:00", "categoria_display": "Diseños SSR/APR", "n_grupo": 1, "visita_terreno": "No exige"}, {"id": "4963-10-LP26", "nombre": "Estudio Hidrogeológico y Geofísico Trehuaco", "entidad": "I. Municipalidad de Trehuaco", "region": "Ñuble", "comuna": "Trehuaco", "categoria": "Estudios Hidrogeológicos", "interes": "Medio", "fpub": "19-06-2026", "fcierre_raw": "08-07-2026 12:00", "fcierre_iso": "2026-07-08T12:00:00", "monto_raw": "No informado en ficha pública (tramo LP: 1.000-5.000 UTM)", "monto_num": null, "plazo": "200 días corridos (3 etapas)", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=4963-10-LP26", "estado": "Revisar", "observaciones": "Estudio multisectorial (9 localidades rurales de Trehuaco), 3 etapas. Cliente municipal con 34 reclamos por incumplimiento de plazo de pago — riesgo de pago a evaluar antes de ofertar.", "fdeteccion": "19-06-2026", "finicio_preguntas_raw": "19-06-2026 11:30", "finicio_preguntas_iso": "2026-06-19T11:30:00", "ffinal_preguntas_raw": "23-06-2026 15:00", "ffinal_preguntas_iso": "2026-06-23T15:00:00", "frespuestas_raw": "25-06-2026 18:00", "frespuestas_iso": "2026-06-25T18:00:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "08-07-2026 12:05", "fapertura_tecnica_iso": "2026-07-08T12:05:00", "fapertura_economica_raw": "08-07-2026 12:10", "fapertura_economica_iso": "2026-07-08T12:10:00", "fadjudicacion_raw": "22-07-2026 18:00", "fadjudicacion_iso": "2026-07-22T18:00:00", "categoria_display": "Estudios Hidrogeológicos", "n_grupo": 1, "visita_terreno": "No exige"}, {"id": "1114-9-LE26", "nombre": "Estudio de Prospección de Aguas Subterráneas a través de Registro de Datos Geofísicos, en Sectores de Aprovechamiento Común, Región Metropolitana Año 2026", "entidad": "MOP - Dirección General de Aguas (DGA), Región Metropolitana", "region": "Metropolitana", "comuna": "Santiago (estudio de alcance territorial, sin comuna única)", "categoria": "Estudios Hidrogeológicos", "interes": "Bajo-Medio", "fpub": "11-06-2026", "fcierre_raw": "30-06-2026 16:00", "fcierre_iso": "2026-06-30T16:00:00", "monto_raw": "No informado en ficha pública (tramo referencial: entre 100 y 1.000 UTM)", "monto_num": null, "plazo": "No especificado en ficha pública; verificar Anexos Técnicos", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1114-9-LE26", "estado": "Revisar", "observaciones": "Mandante DGA, no DOH. Objeto no vinculado explícitamente a un SSR/APR específico. Visita a terreno informada para el 18-06-2026, sin confirmación de obligatoriedad. Evaluar registro habilitante para licitaciones DGA. NOTA 02-07-2026: Mercado Público extendió automáticamente el cierre real a 02-07-2026 16:00 (regla de ≤2 ofertas); columna Fecha de Cierre no se actualiza retroactivamente por alcance del proceso (Paso 4-bis solo refresca estado_mp/aperturas/adjudicación) — verificar manualmente.", "fdeteccion": "22-06-2026", "finicio_preguntas_raw": "11-06-2026 10:00", "finicio_preguntas_iso": "2026-06-11T10:00:00", "ffinal_preguntas_raw": "20-06-2026 10:00", "ffinal_preguntas_iso": "2026-06-20T10:00:00", "frespuestas_raw": "24-06-2026 16:00", "frespuestas_iso": "2026-06-24T16:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "02-07-2026 16:01", "fapertura_tecnica_iso": "2026-07-02T16:01:00", "fapertura_economica_raw": "02-07-2026 16:01", "fapertura_economica_iso": "2026-07-02T16:01:00", "fadjudicacion_raw": "22-07-2026 15:00", "fadjudicacion_iso": "2026-07-22T15:00:00", "categoria_display": "Resultados", "n_grupo": 6, "visita_terreno": "Exige", "visita_terreno_fecha": "18-06-2026 09:00"}, {"id": "896-9-LE26", "nombre": "Ampliación Red de Monitoreo Aguas Subterráneas II", "entidad": "MOP - Dirección General de Aguas (DGA), II Región", "region": "Antofagasta", "comuna": "Antofagasta", "categoria": "Estudios Hidrogeológicos", "interes": "Bajo", "fpub": "23-06-2026", "fcierre_raw": "22-07-2026 12:14", "fcierre_iso": "2026-07-22T12:14:00", "monto_raw": "No informado en ficha pública (Estimación en base a Presupuesto Disponible; Ley de Presupuesto 2026)", "monto_num": null, "plazo": "90 días (Tiempo del Contrato según ficha)", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=896-9-LE26", "estado": "Revisar - Verificar Alcance", "observaciones": "Rubro 'Construcción de obras civiles' y criterio 'Oferta Metraje' sugieren obra de perforación — alcance ambiguo. Mandante DGA. Exige Garantía de Fiel Cumplimiento (5%). Verificar Bases Técnicas antes de ofertar.", "fdeteccion": "24-06-2026", "finicio_preguntas_raw": "23-06-2026 21:33", "finicio_preguntas_iso": "2026-06-23T21:33:00", "ffinal_preguntas_raw": "30-06-2026 21:33", "ffinal_preguntas_iso": "2026-06-30T21:33:00", "frespuestas_raw": "03-07-2026 21:33", "frespuestas_iso": "2026-07-03T21:33:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "22-07-2026 12:15", "fapertura_tecnica_iso": "2026-07-22T12:15:00", "fapertura_economica_raw": "22-07-2026 12:15", "fapertura_economica_iso": "2026-07-22T12:15:00", "fadjudicacion_raw": "11-09-2026 12:15", "fadjudicacion_iso": "2026-09-11T12:15:00", "categoria_display": "Estudios Hidrogeológicos", "n_grupo": 2, "visita_terreno": "No exige"}, {"id": "2288-24-LE26", "nombre": "Contratación Servicio de Diagnóstico Integral de las Redes de Agua Potable", "entidad": "I. Municipalidad de Canela", "region": "Coquimbo", "comuna": "Canela", "categoria": "Diagnósticos Técnicos", "interes": "Bajo-Medio", "fpub": "23-06-2026", "fcierre_raw": "03-07-2026 11:00", "fcierre_iso": "2026-07-03T11:00:00", "monto_raw": "No informado en ficha pública (Estimación en base a Precio Referencial; Presupuesto Municipal 2026)", "monto_num": null, "plazo": "No especificado en ficha pública; verificar Anexos Técnicos", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=2288-24-LE26", "estado": "Revisar", "observaciones": "Rubro 'Estudios de factibilidad', sin obra — match claro de ingeniería. Cliente con 70 reclamos por incumplimiento de plazo de pago — riesgo de pago relevante. Región de Coquimbo. ACTUALIZACIÓN 02-07-2026: fcierre extendido a 03-07-2026 11:00; fadjudicacion a 06-07-2026.", "fdeteccion": "24-06-2026", "finicio_preguntas_raw": "23-06-2026 16:07", "finicio_preguntas_iso": "2026-06-23T16:07:00", "ffinal_preguntas_raw": "26-06-2026 16:07", "ffinal_preguntas_iso": "2026-06-26T16:07:00", "frespuestas_raw": "01-07-2026 10:07", "frespuestas_iso": "2026-07-01T10:07:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "03-07-2026 11:02", "fapertura_tecnica_iso": "2026-07-03T11:02:00", "fapertura_economica_raw": "03-07-2026 11:02", "fapertura_economica_iso": "2026-07-03T11:02:00", "fadjudicacion_raw": "06-07-2026 12:15", "fadjudicacion_iso": "2026-07-06T12:15:00", "categoria_display": "Resultados", "n_grupo": 7, "visita_terreno": "No exige"}, {"id": "1507-10-O126", "nombre": "DIS. DE ING. MEJORAMIENTO Y AMPLIACIÓN SSR HUECHICURA, COMUNA DE CAÑETE", "entidad": "MOP - Dirección de Obras Hidráulicas, VIII Región", "region": "Biobío", "comuna": "Cañete", "categoria": "Diseños SSR/APR", "interes": "Bajo", "fpub": "30-06-2026", "fcierre_raw": "15-07-2026 15:01", "fcierre_iso": "2026-07-15T15:01:00", "monto_raw": "$149.345.000 (Suma alzada y Precios Unitarios)", "monto_num": 149345000, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1507-10-O126", "estado": "Revisar", "observaciones": "⚠ Región Biobío (región a evitar). Diseño DS48, especialidad Ing. Civil 4.8 Obras Sanitarias 2ª categoría, MOP DOH VIII Región. Presupuesto publicado $149.3 MM. Publicada hoy 30-06-2026.", "fdeteccion": "30-06-2026", "finicio_preguntas_raw": "30-06-2026 15:01", "finicio_preguntas_iso": "2026-06-30T15:01:00", "ffinal_preguntas_raw": "07-07-2026 23:59", "ffinal_preguntas_iso": "2026-07-07T23:59:00", "frespuestas_raw": "13-07-2026 15:00", "frespuestas_iso": "2026-07-13T15:00:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "15-07-2026 15:01", "fapertura_tecnica_iso": "2026-07-15T15:01:00", "fapertura_economica_raw": "27-07-2026 15:01", "fapertura_economica_iso": "2026-07-27T15:01:00", "fadjudicacion_raw": "21-08-2026 12:02", "fadjudicacion_iso": "2026-08-21T12:02:00", "categoria_display": "Diseños SSR/APR", "n_grupo": 2, "visita_terreno": "No exige"}, {"id": "1507-13-O126", "nombre": "Dis. Mej. de Sist. Básicos SSR de la comuna de Santa Juana, 2do Llamado", "entidad": "MOP - Dirección de Obras Hidráulicas, VIII Región", "region": "Biobío", "comuna": "Santa Juana", "categoria": "Diseños SSR/APR", "interes": "Bajo", "fpub": "02-07-2026", "fcierre_raw": "20-07-2026 15:01", "fcierre_iso": "2026-07-20T15:01:00", "monto_raw": "$145.751.200 (Suma alzada y Precios Unitarios)", "monto_num": 145751200, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1507-13-O126", "estado": "Revisar", "observaciones": "2do llamado (probable primer llamado desierto/revocado). Región Biobío (evitar). Mismo patrón de bases tipo DOH VIII Región que 1507-5/8/10-O126.", "fdeteccion": "02-07-2026", "finicio_preguntas_raw": "02-07-2026 09:00", "finicio_preguntas_iso": "2026-07-02T09:00:00", "ffinal_preguntas_raw": "09-07-2026 23:59", "ffinal_preguntas_iso": "2026-07-09T23:59:00", "frespuestas_raw": "15-07-2026 15:00", "frespuestas_iso": "2026-07-15T15:00:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "20-07-2026 15:01", "fapertura_tecnica_iso": "2026-07-20T15:01:00", "fapertura_economica_raw": "03-08-2026 15:01", "fapertura_economica_iso": "2026-08-03T15:01:00", "fadjudicacion_raw": "28-08-2026 09:00", "fadjudicacion_iso": "2026-08-28T09:00:00", "visita_terreno": "No exige", "categoria_display": "Diseños SSR/APR", "n_grupo": 3}, {"id": "1505-16-O126", "nombre": "Diseño Mejoramiento Servicio de Agua Potable SSR Corcolén, comuna de Malloa", "entidad": "MOP - Dirección de Obras Hidráulicas, VI Región", "region": "O'Higgins", "comuna": "Malloa (sector Corcolén)", "categoria": "Diseños SSR/APR", "interes": "Medio", "fpub": "02-07-2026", "fcierre_raw": "28-07-2026 09:30", "fcierre_iso": "2026-07-28T09:30:00", "monto_raw": "No informado en ficha pública (Suma Alzada)", "monto_num": null, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1505-16-O126", "estado": "Revisar", "observaciones": "Detección 06-07-2026. NO registrada aún en Planilla_Maestra_Licitaciones_SSR.xlsx por falla técnica de acceso al archivo en esta ejecución (el sandbox no logró montar la carpeta de Drive del proyecto) — pendiente completar Paso 6 manualmente. Carpeta de respaldo creada y verificada en Licitaciones\\[2026-07-06][1505-16-O126][Diseno SSR Corcolen Malloa].", "fdeteccion": "06-07-2026", "finicio_preguntas_raw": "02-07-2026 17:30", "finicio_preguntas_iso": "2026-07-02T17:30:00", "ffinal_preguntas_raw": "14-07-2026 17:30", "ffinal_preguntas_iso": "2026-07-14T17:30:00", "frespuestas_raw": "21-07-2026 17:30", "frespuestas_iso": "2026-07-21T17:30:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "28-07-2026 10:00", "fapertura_tecnica_iso": "2026-07-28T10:00:00", "fapertura_economica_raw": "04-08-2026 10:00", "fapertura_economica_iso": "2026-08-04T10:00:00", "fadjudicacion_raw": "30-09-2026 19:11", "fadjudicacion_iso": "2026-09-30T19:11:00", "categoria_display": "Diseños SSR/APR", "n_grupo": 4, "visita_terreno": "No exige"}, {"id": "3567-23-LE26", "nombre": "Estudios de Ensayos de Mecánica de Suelos Copiulemu (SSR Copiulemu)", "entidad": "I. Municipalidad de Florida", "region": "Biobío", "comuna": "Florida (sector Copiulemu)", "categoria": "Diagnósticos Técnicos", "interes": "Bajo", "fpub": "06-07-2026", "fcierre_raw": "17-07-2026 15:01", "fcierre_iso": "2026-07-17T15:01:00", "monto_raw": "No informado en ficha pública (Estimación en base a Presupuesto Disponible; garantía fiel cumplimiento 5% — no es monto del contrato)", "monto_num": null, "plazo": "No especificado en ficha pública; verificar bases administrativas", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=3567-23-LE26", "estado": "Revisar", "observaciones": "Ensayes de mecánica de suelos para complementar diseños municipales de conservación de dos estanques y redes del SSR Copiulemu (trabajo colaborativo Municipalidad de Florida – DOH Biobío). Duda de categoría registrada: servicio de laboratorio geotécnico complementario a diseño, no diseño completo ni estudio hidrogeológico — se clasifica en Diagnósticos Técnicos. ⚠ Región Biobío (a evitar). NO registrada en planilla maestra: Planilla_Maestra_Licitaciones_SSR.xlsx ausente de la carpeta del proyecto desde 2026-07-06 — pendiente restaurar y completar Paso 6 manualmente.", "fdeteccion": "07-07-2026", "finicio_preguntas_raw": "06-07-2026 12:01", "finicio_preguntas_iso": "2026-07-06T12:01:00", "ffinal_preguntas_raw": "09-07-2026 13:00", "ffinal_preguntas_iso": "2026-07-09T13:00:00", "frespuestas_raw": "10-07-2026 20:30", "frespuestas_iso": "2026-07-10T20:30:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "17-07-2026 15:02", "fapertura_tecnica_iso": "2026-07-17T15:02:00", "fapertura_economica_raw": "17-07-2026 15:02", "fapertura_economica_iso": "2026-07-17T15:02:00", "fadjudicacion_raw": "31-08-2026 20:30", "fadjudicacion_iso": "2026-08-31T20:30:00", "visita_terreno": "No exige", "categoria_display": "Diagnósticos Técnicos", "n_grupo": 1}];
+const TENDERS = [{"id": "817-9-O126", "nombre": "Estudio Hidrogeológico (Geofísico) SSR Pilmaiquen, comuna de Puyehue", "entidad": "MOP - Dirección de Obras Hidráulicas, X Región", "region": "Los Lagos", "comuna": "Puyehue", "categoria": "Estudios Hidrogeológicos", "interes": "Medio", "fpub": "03-06-2026", "fcierre_raw": "24-06-2026 14:30", "fcierre_iso": "2026-06-24T14:30:00", "monto_raw": "$26.890.756 (Suma Alzada)", "monto_num": 26890756, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=817-9-O126", "estado": "Revisar", "observaciones": "Estudio hidrogeológico complementario a SSR existente; categoría DOH Estudios Básicos, alineado a especialidad de Hidrogestión. Cierra en 7 días desde detección.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "03-06-2026 08:01", "finicio_preguntas_iso": "2026-06-03T08:01:00", "ffinal_preguntas_raw": "10-06-2026 16:00", "ffinal_preguntas_iso": "2026-06-10T16:00:00", "frespuestas_raw": "17-06-2026 16:00", "frespuestas_iso": "2026-06-17T16:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "24-06-2026 15:00", "fapertura_tecnica_iso": "2026-06-24T15:00:00", "fapertura_economica_raw": "02-07-2026 15:00", "fapertura_economica_iso": "2026-07-02T15:00:00", "fadjudicacion_raw": "20-07-2026 16:00", "fadjudicacion_iso": "2026-07-20T16:00:00", "categoria_display": "Resultados", "n_grupo": 5, "visita_terreno": "No exige"}, {"id": "5661-26-O126", "nombre": "EH Grupo 1 SSR Tringlo A - Ensenada Lago Ranco, 2do Llamado", "entidad": "MOP - Dirección de Obras Hidráulicas, XIV Región", "region": "Los Ríos", "comuna": "Lago Ranco (sector Tringlo A-Ensenada)", "categoria": "Estudios Hidrogeológicos", "interes": "Medio", "fpub": "01-06-2026", "fcierre_raw": "24-06-2026 09:59", "fcierre_iso": "2026-06-24T09:59:00", "monto_raw": "$21.182.000 (Suma alzada y Precios Unitarios)", "monto_num": 21182000, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=5661-26-O126", "estado": "Revisar", "observaciones": "Segundo llamado (probable primer llamado desierto). CORRECCIÓN 25-06-2026: fcierre_raw corregido a '24-06-2026 09:59'.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "01-06-2026 14:00", "finicio_preguntas_iso": "2026-06-01T14:00:00", "ffinal_preguntas_raw": "08-06-2026 15:00", "ffinal_preguntas_iso": "2026-06-08T15:00:00", "frespuestas_raw": "17-06-2026 18:00", "frespuestas_iso": "2026-06-17T18:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "24-06-2026 10:00", "fapertura_tecnica_iso": "2026-06-24T10:00:00", "fapertura_economica_raw": "01-07-2026 10:00", "fapertura_economica_iso": "2026-07-01T10:00:00", "fadjudicacion_raw": "26-08-2026 12:01", "fadjudicacion_iso": "2026-08-26T12:01:00", "categoria_display": "Resultados", "n_grupo": 3, "visita_terreno": "No exige"}, {"id": "1503-3-O126", "nombre": "Diseño Planta Desalinizadora SSR El Esfuerzo, segundo llamado", "entidad": "MOP - Dirección de Obras Hidráulicas, IV Región", "region": "Coquimbo", "comuna": "No especificada en ficha (verificar TdR)", "categoria": "Diseños SSR/APR", "interes": "Medio", "fpub": "24-03-2026", "fcierre_raw": "25-06-2026 09:00", "fcierre_iso": "2026-06-25T09:00:00", "monto_raw": "No informado en ficha pública", "monto_num": null, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1503-3-O126", "estado": "Revisar", "observaciones": "Segundo llamado; incluye EIA. Visita a terreno obligatoria ya realizada (17-04-2026).", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "24-03-2026 15:05", "finicio_preguntas_iso": "2026-03-24T15:05:00", "ffinal_preguntas_raw": "04-05-2026 12:00", "ffinal_preguntas_iso": "2026-05-04T12:00:00", "frespuestas_raw": "29-05-2026 15:00", "frespuestas_iso": "2026-05-29T15:00:00", "estado_mp": "Desierta (o art. 3 ó 9 Ley 19.886)", "fapertura_tecnica_raw": "25-06-2026 12:30", "fapertura_tecnica_iso": "2026-06-25T12:30:00", "fapertura_economica_raw": "09-07-2026 10:30", "fapertura_economica_iso": "2026-07-09T10:30:00", "fadjudicacion_raw": "27-07-2026 17:00", "fadjudicacion_iso": "2026-07-27T17:00:00", "categoria_display": "Apertura Oferta Económica", "n_grupo": 1, "visita_terreno": "Obligatoria", "visita_terreno_fecha": "17-04-2026 10:00"}, {"id": "1505-10-O126", "nombre": "Diseño Mejoramiento y Ampliación SSR Licancheu – Matanzas – La Vega de Pupuya", "entidad": "MOP - Dirección de Obras Hidráulicas, VI Región", "region": "O'Higgins", "comuna": "Navidad", "categoria": "Diseños SSR/APR", "interes": "Alto", "fpub": "15-06-2026", "fcierre_raw": "06-07-2026 15:00", "fcierre_iso": "2026-07-06T15:00:00", "monto_raw": "$217.627.200 (Suma Alzada)", "monto_num": 217627200, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1505-10-O126", "estado": "Revisar", "observaciones": "Publicación muy reciente (15-06-2026); detección oportuna a 2 días de publicada. ACTUALIZACIÓN 07-07-2026 (Paso 4-bis): ficha MP indica estado Desierta (o art. 3 ó 9 Ley 19.886) tras el cierre del 06-07-2026 — probable segundo llamado futuro, monitorear.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "15-06-2026 11:15", "finicio_preguntas_iso": "2026-06-15T11:15:00", "ffinal_preguntas_raw": "25-06-2026 12:00", "ffinal_preguntas_iso": "2026-06-25T12:00:00", "frespuestas_raw": "29-06-2026 17:00", "frespuestas_iso": "2026-06-29T17:00:00", "estado_mp": "Desierta (o art. 3 ó 9 Ley 19.886)", "fapertura_tecnica_raw": "06-07-2026 15:30", "fapertura_tecnica_iso": "2026-07-06T15:30:00", "fapertura_economica_raw": "13-07-2026 15:30", "fapertura_economica_iso": "2026-07-13T15:30:00", "fadjudicacion_raw": "10-09-2026 17:00", "fadjudicacion_iso": "2026-09-10T17:00:00", "categoria_display": "Apertura Oferta Económica", "n_grupo": 3, "visita_terreno": "No exige"}, {"id": "1507-5-O126", "nombre": "Diseño de Ingeniería Mejoramiento y Ampliación SSR Reposo, comuna de Cañete", "entidad": "MOP - Dirección de Obras Hidráulicas, VIII Región", "region": "Biobío", "comuna": "Cañete", "categoria": "Diseños SSR/APR", "interes": "Bajo", "fpub": "01-06-2026", "fcierre_raw": "18-06-2026 15:01", "fcierre_iso": "2026-06-18T15:01:00", "monto_raw": "$148.988.000 (Suma alzada y Precios Unitarios)", "monto_num": 148988000, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1507-5-O126", "estado": "Revisar - URGENTE", "observaciones": "URGENTE: cierra mañana (18-06-2026), 1 día desde la fecha de detección.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "01-06-2026 09:00", "finicio_preguntas_iso": "2026-06-01T09:00:00", "ffinal_preguntas_raw": "07-06-2026 14:00", "ffinal_preguntas_iso": "2026-06-07T14:00:00", "frespuestas_raw": "12-06-2026 15:00", "frespuestas_iso": "2026-06-12T15:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "18-06-2026 15:01", "fapertura_tecnica_iso": "2026-06-18T15:01:00", "fapertura_economica_raw": "06-07-2026 15:01", "fapertura_economica_iso": "2026-07-06T15:01:00", "fadjudicacion_raw": "03-08-2026 14:10", "fadjudicacion_iso": "2026-08-03T14:10:00", "categoria_display": "Resultados", "n_grupo": 1, "visita_terreno": "No exige"}, {"id": "1502-5-O126", "nombre": "Diseño Mejoramiento SSR El Jilguero", "entidad": "MOP - Dirección de Obras Hidráulicas, III Región", "region": "Atacama", "comuna": "Vallenar", "categoria": "Diseños SSR/APR", "interes": "Alto", "fpub": "28-05-2026", "fcierre_raw": "07-07-2026 09:00", "fcierre_iso": "2026-07-07T09:00:00", "monto_raw": "$178.437.525", "monto_num": 178437525, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1502-5-O126", "estado": "Revisar", "observaciones": "Visita a terreno opcional ya realizada (02-06-2026); revisar acta de aclaraciones antes de ofertar.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "28-05-2026 15:18", "finicio_preguntas_iso": "2026-05-28T15:18:00", "ffinal_preguntas_raw": "09-06-2026 15:10", "ffinal_preguntas_iso": "2026-06-09T15:10:00", "frespuestas_raw": "16-06-2026 17:00", "frespuestas_iso": "2026-06-16T17:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "07-07-2026 10:00", "fapertura_tecnica_iso": "2026-07-07T10:00:00", "fapertura_economica_raw": "14-07-2026 10:00", "fapertura_economica_iso": "2026-07-14T10:00:00", "fadjudicacion_raw": "28-07-2026 13:00", "fadjudicacion_iso": "2026-07-28T13:00:00", "categoria_display": "Apertura Oferta Económica", "n_grupo": 4, "visita_terreno": "Opcional", "visita_terreno_fecha": "02-06-2026 11:00", "aplicamos": true, "resultado_hdg": "Pendiente", "oferentes": []}, {"id": "1507-8-O126", "nombre": "Diseño Mejoramiento y Ampliación SSR de Santa Fe, comuna de Los Ángeles", "entidad": "MOP - Dirección de Obras Hidráulicas, VIII Región", "region": "Biobío", "comuna": "Los Ángeles", "categoria": "Diseños SSR/APR", "interes": "Alto", "fpub": "15-06-2026", "fcierre_raw": "03-07-2026 15:01", "fcierre_iso": "2026-07-03T15:01:00", "monto_raw": "$161.959.000 (Suma alzada y Precios Unitarios)", "monto_num": 161959000, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1507-8-O126", "estado": "Revisar", "observaciones": "Publicación muy reciente (15-06-2026); mismas bases tipo que 1507-5-O126 (misma DOH VIII Región).", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "15-06-2026 15:28", "finicio_preguntas_iso": "2026-06-15T15:28:00", "ffinal_preguntas_raw": "22-06-2026 23:59", "ffinal_preguntas_iso": "2026-06-22T23:59:00", "frespuestas_raw": "30-06-2026 15:00", "frespuestas_iso": "2026-06-30T15:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "03-07-2026 15:01", "fapertura_tecnica_iso": "2026-07-03T15:01:00", "fapertura_economica_raw": "13-07-2026 15:01", "fapertura_economica_iso": "2026-07-13T15:01:00", "fadjudicacion_raw": "10-08-2026 15:29", "fadjudicacion_iso": "2026-08-10T15:29:00", "categoria_display": "Apertura Oferta Económica", "n_grupo": 2, "visita_terreno": "No exige"}, {"id": "1593-11-LP26", "nombre": "Estudio de Determinación Tarifaria 2026 e Implementación del Régimen Tarifario en SSR", "entidad": "Superintendencia de Servicios Sanitarios (SISS)", "region": "Metropolitana (alcance nacional, 204 SSR)", "comuna": "Santiago (sede; alcance nacional)", "categoria": "Estudio Tarifario", "interes": "Medio-Alto", "fpub": "02-06-2026", "fcierre_raw": "22-06-2026 15:01", "fcierre_iso": "2026-06-22T15:01:00", "monto_raw": "$250.000.000", "monto_num": 250000000, "plazo": "325 días", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1593-11-LP26", "estado": "Revisar - ALTA RELEVANCIA", "observaciones": "Licitación nacional (204 SSR a tarificar), monto y plazo significativos. Verificar perfiles profesionales exigidos (especialidad regulatoria/tarifaria).", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "02-06-2026 13:30", "finicio_preguntas_iso": "2026-06-02T13:30:00", "ffinal_preguntas_raw": "10-06-2026 13:00", "ffinal_preguntas_iso": "2026-06-10T13:00:00", "frespuestas_raw": "15-06-2026 18:00", "frespuestas_iso": "2026-06-15T18:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "22-06-2026 15:02", "fapertura_tecnica_iso": "2026-06-22T15:02:00", "fapertura_economica_raw": "06-07-2026 18:00", "fapertura_economica_iso": "2026-07-06T18:00:00", "fadjudicacion_raw": "14-07-2026 18:00", "fadjudicacion_iso": "2026-07-14T18:00:00", "categoria_display": "Resultados", "n_grupo": 2, "visita_terreno": "No exige"}, {"id": "840405-7-LE26", "nombre": "Estudio Hidrogeológico y de Prospección Geofísica Sector Santa Ester", "entidad": "I. Municipalidad de Río Claro", "region": "Maule", "comuna": "Río Claro (sector Santa Ester)", "categoria": "Estudios Hidrogeológicos", "interes": "Bajo-Medio", "fpub": "01-06-2026", "fcierre_raw": "24-06-2026 13:00", "fcierre_iso": "2026-06-24T13:00:00", "monto_raw": "Monto no informado (financiamiento SUBDERE PMB); garantía de seriedad $100.000 — no es el monto del contrato", "monto_num": null, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=840405-7-LE26", "estado": "Revisar", "observaciones": "Financiado por SUBDERE PMB, típico en estudios municipales de agua rural. Visita a terreno obligatoria ya realizada (05-06-2026).", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "01-06-2026 18:28", "finicio_preguntas_iso": "2026-06-01T18:28:00", "ffinal_preguntas_raw": "06-06-2026 13:00", "ffinal_preguntas_iso": "2026-06-06T13:00:00", "frespuestas_raw": "11-06-2026 22:00", "frespuestas_iso": "2026-06-11T22:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "24-06-2026 13:05", "fapertura_tecnica_iso": "2026-06-24T13:05:00", "fapertura_economica_raw": "24-06-2026 13:05", "fapertura_economica_iso": "2026-06-24T13:05:00", "fadjudicacion_raw": "15-07-2026 15:58", "fadjudicacion_iso": "2026-07-15T15:58:00", "categoria_display": "Resultados", "n_grupo": 4, "visita_terreno": "Obligatoria", "visita_terreno_fecha": "05-06-2026 10:30"}, {"id": "3676-18-LP26", "nombre": "Diseño Mejoramiento Sistema Agua Potable Rural Calle Larga", "entidad": "I. Municipalidad de Petorca", "region": "Valparaíso", "comuna": "Petorca", "categoria": "Diseños SSR/APR", "interes": "Alto", "fpub": "15-06-2026", "fcierre_raw": "03-07-2026 15:30", "fcierre_iso": "2026-07-03T15:30:00", "monto_raw": "$132.598.000 (financiamiento GORE Valparaíso, FNDR)", "monto_num": 132598000, "plazo": "No especificado en ficha", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=3676-18-LP26", "estado": "Revisar", "observaciones": "Exige inscripción en Registro de Consultores MOP 2da categoría Esp. 4.8 Obras Sanitarias. Visita a terreno obligatoria 19-06-2026 12:00 (ya realizada). ACTUALIZACIÓN 06-07-2026: ficha MP muestra fecha de cierre real extendida a 06-07-2026 15:30 (columna Fecha de Cierre no se actualiza retroactivamente; categoria_display sigue calculándose mecánicamente sobre la fecha originalmente registrada 03-07-2026) — verificar manualmente antes de asumir que ya hubo apertura técnica. ACTUALIZACIÓN 07-07-2026 (Paso 4-bis): ficha confirma estado Cerrada; aperturas técnica/económica registradas el 06-07-2026 15:40.", "fdeteccion": "17-06-2026", "finicio_preguntas_raw": "16-06-2026 09:00", "finicio_preguntas_iso": "2026-06-16T09:00:00", "ffinal_preguntas_raw": "22-06-2026 22:30", "ffinal_preguntas_iso": "2026-06-22T22:30:00", "frespuestas_raw": "26-06-2026 18:00", "frespuestas_iso": "2026-06-26T18:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "06-07-2026 15:40", "fapertura_tecnica_iso": "2026-07-06T15:40:00", "fapertura_economica_raw": "06-07-2026 15:40", "fapertura_economica_iso": "2026-07-06T15:40:00", "fadjudicacion_raw": "17-07-2026 18:30", "fadjudicacion_iso": "2026-07-17T18:30:00", "categoria_display": "Resultados", "n_grupo": 8, "visita_terreno": "Obligatoria", "visita_terreno_fecha": "19-06-2026 12:00"}, {"id": "817-11-O126", "nombre": "Diseño de Ingeniería para el SSR El Límite, comuna de Futaleufú", "entidad": "MOP - Dirección de Obras Hidráulicas, X Región", "region": "Los Lagos", "comuna": "Futaleufú", "categoria": "Diseños SSR/APR", "interes": "Medio", "fpub": "18-06-2026", "fcierre_raw": "10-07-2026 14:30", "fcierre_iso": "2026-07-10T14:30:00", "monto_raw": "$84.033.613 (Suma Alzada y Precios Unitarios)", "monto_num": 84033613, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=817-11-O126", "estado": "Revisar", "observaciones": "Diseño DS48 puro para nuevo SSR en Futaleufú (Patagonia, Los Lagos). Monto moderado (~$84 MM) y ubicación remota con alto costo de movilización.", "fdeteccion": "19-06-2026", "finicio_preguntas_raw": "18-06-2026 12:16", "finicio_preguntas_iso": "2026-06-18T12:16:00", "ffinal_preguntas_raw": "25-06-2026 16:00", "ffinal_preguntas_iso": "2026-06-25T16:00:00", "frespuestas_raw": "03-07-2026 16:00", "frespuestas_iso": "2026-07-03T16:00:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "10-07-2026 15:00", "fapertura_tecnica_iso": "2026-07-10T15:00:00", "fapertura_economica_raw": "20-07-2026 16:00", "fapertura_economica_iso": "2026-07-20T16:00:00", "fadjudicacion_raw": "14-08-2026 16:00", "fadjudicacion_iso": "2026-08-14T16:00:00", "categoria_display": "Diseños SSR/APR", "n_grupo": 1, "visita_terreno": "No exige"}, {"id": "4963-10-LP26", "nombre": "Estudio Hidrogeológico y Geofísico Trehuaco", "entidad": "I. Municipalidad de Trehuaco", "region": "Ñuble", "comuna": "Trehuaco", "categoria": "Estudios Hidrogeológicos", "interes": "Medio", "fpub": "19-06-2026", "fcierre_raw": "08-07-2026 12:00", "fcierre_iso": "2026-07-08T12:00:00", "monto_raw": "No informado en ficha pública (tramo LP: 1.000-5.000 UTM)", "monto_num": null, "plazo": "200 días corridos (3 etapas)", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=4963-10-LP26", "estado": "Revisar", "observaciones": "Estudio multisectorial (9 localidades rurales de Trehuaco), 3 etapas. Cliente municipal con 34 reclamos por incumplimiento de plazo de pago — riesgo de pago a evaluar antes de ofertar.", "fdeteccion": "19-06-2026", "finicio_preguntas_raw": "19-06-2026 11:30", "finicio_preguntas_iso": "2026-06-19T11:30:00", "ffinal_preguntas_raw": "23-06-2026 15:00", "ffinal_preguntas_iso": "2026-06-23T15:00:00", "frespuestas_raw": "25-06-2026 18:00", "frespuestas_iso": "2026-06-25T18:00:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "08-07-2026 12:05", "fapertura_tecnica_iso": "2026-07-08T12:05:00", "fapertura_economica_raw": "08-07-2026 12:10", "fapertura_economica_iso": "2026-07-08T12:10:00", "fadjudicacion_raw": "22-07-2026 18:00", "fadjudicacion_iso": "2026-07-22T18:00:00", "categoria_display": "Resultados", "n_grupo": 9, "visita_terreno": "No exige"}, {"id": "1114-9-LE26", "nombre": "Estudio de Prospección de Aguas Subterráneas a través de Registro de Datos Geofísicos, en Sectores de Aprovechamiento Común, Región Metropolitana Año 2026", "entidad": "MOP - Dirección General de Aguas (DGA), Región Metropolitana", "region": "Metropolitana", "comuna": "Santiago (estudio de alcance territorial, sin comuna única)", "categoria": "Estudios Hidrogeológicos", "interes": "Bajo-Medio", "fpub": "11-06-2026", "fcierre_raw": "30-06-2026 16:00", "fcierre_iso": "2026-06-30T16:00:00", "monto_raw": "No informado en ficha pública (tramo referencial: entre 100 y 1.000 UTM)", "monto_num": null, "plazo": "No especificado en ficha pública; verificar Anexos Técnicos", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1114-9-LE26", "estado": "Revisar", "observaciones": "Mandante DGA, no DOH. Objeto no vinculado explícitamente a un SSR/APR específico. Visita a terreno informada para el 18-06-2026, sin confirmación de obligatoriedad. Evaluar registro habilitante para licitaciones DGA. NOTA 02-07-2026: Mercado Público extendió automáticamente el cierre real a 02-07-2026 16:00 (regla de ≤2 ofertas); columna Fecha de Cierre no se actualiza retroactivamente por alcance del proceso (Paso 4-bis solo refresca estado_mp/aperturas/adjudicación) — verificar manualmente.", "fdeteccion": "22-06-2026", "finicio_preguntas_raw": "11-06-2026 10:00", "finicio_preguntas_iso": "2026-06-11T10:00:00", "ffinal_preguntas_raw": "20-06-2026 10:00", "ffinal_preguntas_iso": "2026-06-20T10:00:00", "frespuestas_raw": "24-06-2026 16:00", "frespuestas_iso": "2026-06-24T16:00:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "02-07-2026 16:01", "fapertura_tecnica_iso": "2026-07-02T16:01:00", "fapertura_economica_raw": "02-07-2026 16:01", "fapertura_economica_iso": "2026-07-02T16:01:00", "fadjudicacion_raw": "22-07-2026 15:00", "fadjudicacion_iso": "2026-07-22T15:00:00", "categoria_display": "Resultados", "n_grupo": 6, "visita_terreno": "Exige", "visita_terreno_fecha": "18-06-2026 09:00"}, {"id": "896-9-LE26", "nombre": "Ampliación Red de Monitoreo Aguas Subterráneas II", "entidad": "MOP - Dirección General de Aguas (DGA), II Región", "region": "Antofagasta", "comuna": "Antofagasta", "categoria": "Estudios Hidrogeológicos", "interes": "Bajo", "fpub": "23-06-2026", "fcierre_raw": "22-07-2026 12:14", "fcierre_iso": "2026-07-22T12:14:00", "monto_raw": "No informado en ficha pública (Estimación en base a Presupuesto Disponible; Ley de Presupuesto 2026)", "monto_num": null, "plazo": "90 días (Tiempo del Contrato según ficha)", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=896-9-LE26", "estado": "Revisar - Verificar Alcance", "observaciones": "Rubro 'Construcción de obras civiles' y criterio 'Oferta Metraje' sugieren obra de perforación — alcance ambiguo. Mandante DGA. Exige Garantía de Fiel Cumplimiento (5%). Verificar Bases Técnicas antes de ofertar.", "fdeteccion": "24-06-2026", "finicio_preguntas_raw": "23-06-2026 21:33", "finicio_preguntas_iso": "2026-06-23T21:33:00", "ffinal_preguntas_raw": "30-06-2026 21:33", "ffinal_preguntas_iso": "2026-06-30T21:33:00", "frespuestas_raw": "03-07-2026 21:33", "frespuestas_iso": "2026-07-03T21:33:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "22-07-2026 12:15", "fapertura_tecnica_iso": "2026-07-22T12:15:00", "fapertura_economica_raw": "22-07-2026 12:15", "fapertura_economica_iso": "2026-07-22T12:15:00", "fadjudicacion_raw": "11-09-2026 12:15", "fadjudicacion_iso": "2026-09-11T12:15:00", "categoria_display": "Estudios Hidrogeológicos", "n_grupo": 1, "visita_terreno": "No exige"}, {"id": "2288-24-LE26", "nombre": "Contratación Servicio de Diagnóstico Integral de las Redes de Agua Potable", "entidad": "I. Municipalidad de Canela", "region": "Coquimbo", "comuna": "Canela", "categoria": "Diagnósticos Técnicos", "interes": "Bajo-Medio", "fpub": "23-06-2026", "fcierre_raw": "03-07-2026 11:00", "fcierre_iso": "2026-07-03T11:00:00", "monto_raw": "No informado en ficha pública (Estimación en base a Precio Referencial; Presupuesto Municipal 2026)", "monto_num": null, "plazo": "No especificado en ficha pública; verificar Anexos Técnicos", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=2288-24-LE26", "estado": "Revisar", "observaciones": "Rubro 'Estudios de factibilidad', sin obra — match claro de ingeniería. Cliente con 70 reclamos por incumplimiento de plazo de pago — riesgo de pago relevante. Región de Coquimbo. ACTUALIZACIÓN 02-07-2026: fcierre extendido a 03-07-2026 11:00; fadjudicacion a 06-07-2026.", "fdeteccion": "24-06-2026", "finicio_preguntas_raw": "23-06-2026 16:07", "finicio_preguntas_iso": "2026-06-23T16:07:00", "ffinal_preguntas_raw": "26-06-2026 16:07", "ffinal_preguntas_iso": "2026-06-26T16:07:00", "frespuestas_raw": "01-07-2026 10:07", "frespuestas_iso": "2026-07-01T10:07:00", "estado_mp": "Cerrada", "fapertura_tecnica_raw": "03-07-2026 11:02", "fapertura_tecnica_iso": "2026-07-03T11:02:00", "fapertura_economica_raw": "03-07-2026 11:02", "fapertura_economica_iso": "2026-07-03T11:02:00", "fadjudicacion_raw": "06-07-2026 12:15", "fadjudicacion_iso": "2026-07-06T12:15:00", "categoria_display": "Resultados", "n_grupo": 7, "visita_terreno": "No exige"}, {"id": "1507-10-O126", "nombre": "DIS. DE ING. MEJORAMIENTO Y AMPLIACIÓN SSR HUECHICURA, COMUNA DE CAÑETE", "entidad": "MOP - Dirección de Obras Hidráulicas, VIII Región", "region": "Biobío", "comuna": "Cañete", "categoria": "Diseños SSR/APR", "interes": "Bajo", "fpub": "30-06-2026", "fcierre_raw": "15-07-2026 15:01", "fcierre_iso": "2026-07-15T15:01:00", "monto_raw": "$149.345.000 (Suma alzada y Precios Unitarios)", "monto_num": 149345000, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1507-10-O126", "estado": "Revisar", "observaciones": "⚠ Región Biobío (región a evitar). Diseño DS48, especialidad Ing. Civil 4.8 Obras Sanitarias 2ª categoría, MOP DOH VIII Región. Presupuesto publicado $149.3 MM. Publicada hoy 30-06-2026.", "fdeteccion": "30-06-2026", "finicio_preguntas_raw": "30-06-2026 15:01", "finicio_preguntas_iso": "2026-06-30T15:01:00", "ffinal_preguntas_raw": "07-07-2026 23:59", "ffinal_preguntas_iso": "2026-07-07T23:59:00", "frespuestas_raw": "13-07-2026 15:00", "frespuestas_iso": "2026-07-13T15:00:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "15-07-2026 15:01", "fapertura_tecnica_iso": "2026-07-15T15:01:00", "fapertura_economica_raw": "27-07-2026 15:01", "fapertura_economica_iso": "2026-07-27T15:01:00", "fadjudicacion_raw": "21-08-2026 12:02", "fadjudicacion_iso": "2026-08-21T12:02:00", "categoria_display": "Diseños SSR/APR", "n_grupo": 2, "visita_terreno": "No exige"}, {"id": "1507-13-O126", "nombre": "Dis. Mej. de Sist. Básicos SSR de la comuna de Santa Juana, 2do Llamado", "entidad": "MOP - Dirección de Obras Hidráulicas, VIII Región", "region": "Biobío", "comuna": "Santa Juana", "categoria": "Diseños SSR/APR", "interes": "Bajo", "fpub": "02-07-2026", "fcierre_raw": "20-07-2026 15:01", "fcierre_iso": "2026-07-20T15:01:00", "monto_raw": "$145.751.200 (Suma alzada y Precios Unitarios)", "monto_num": 145751200, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1507-13-O126", "estado": "Revisar", "observaciones": "2do llamado (probable primer llamado desierto/revocado). Región Biobío (evitar). Mismo patrón de bases tipo DOH VIII Región que 1507-5/8/10-O126.", "fdeteccion": "02-07-2026", "finicio_preguntas_raw": "02-07-2026 09:00", "finicio_preguntas_iso": "2026-07-02T09:00:00", "ffinal_preguntas_raw": "09-07-2026 23:59", "ffinal_preguntas_iso": "2026-07-09T23:59:00", "frespuestas_raw": "15-07-2026 15:00", "frespuestas_iso": "2026-07-15T15:00:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "20-07-2026 15:01", "fapertura_tecnica_iso": "2026-07-20T15:01:00", "fapertura_economica_raw": "03-08-2026 15:01", "fapertura_economica_iso": "2026-08-03T15:01:00", "fadjudicacion_raw": "28-08-2026 09:00", "fadjudicacion_iso": "2026-08-28T09:00:00", "visita_terreno": "No exige", "categoria_display": "Diseños SSR/APR", "n_grupo": 3}, {"id": "1505-16-O126", "nombre": "Diseño Mejoramiento Servicio de Agua Potable SSR Corcolén, comuna de Malloa", "entidad": "MOP - Dirección de Obras Hidráulicas, VI Región", "region": "O'Higgins", "comuna": "Malloa (sector Corcolén)", "categoria": "Diseños SSR/APR", "interes": "Medio", "fpub": "02-07-2026", "fcierre_raw": "28-07-2026 09:30", "fcierre_iso": "2026-07-28T09:30:00", "monto_raw": "No informado en ficha pública (Suma Alzada)", "monto_num": null, "plazo": "No especificado en ficha; verificar TdR", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1505-16-O126", "estado": "Revisar", "observaciones": "Detección 06-07-2026. NO registrada aún en Planilla_Maestra_Licitaciones_SSR.xlsx por falla técnica de acceso al archivo en esta ejecución (el sandbox no logró montar la carpeta de Drive del proyecto) — pendiente completar Paso 6 manualmente. Carpeta de respaldo creada y verificada en Licitaciones\\[2026-07-06][1505-16-O126][Diseno SSR Corcolen Malloa].", "fdeteccion": "06-07-2026", "finicio_preguntas_raw": "02-07-2026 17:30", "finicio_preguntas_iso": "2026-07-02T17:30:00", "ffinal_preguntas_raw": "14-07-2026 17:30", "ffinal_preguntas_iso": "2026-07-14T17:30:00", "frespuestas_raw": "21-07-2026 17:30", "frespuestas_iso": "2026-07-21T17:30:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "28-07-2026 10:00", "fapertura_tecnica_iso": "2026-07-28T10:00:00", "fapertura_economica_raw": "04-08-2026 10:00", "fapertura_economica_iso": "2026-08-04T10:00:00", "fadjudicacion_raw": "30-09-2026 19:11", "fadjudicacion_iso": "2026-09-30T19:11:00", "categoria_display": "Diseños SSR/APR", "n_grupo": 4, "visita_terreno": "No exige"}, {"id": "3567-23-LE26", "nombre": "Estudios de Ensayos de Mecánica de Suelos Copiulemu (SSR Copiulemu)", "entidad": "I. Municipalidad de Florida", "region": "Biobío", "comuna": "Florida (sector Copiulemu)", "categoria": "Diagnósticos Técnicos", "interes": "Bajo", "fpub": "06-07-2026", "fcierre_raw": "17-07-2026 15:01", "fcierre_iso": "2026-07-17T15:01:00", "monto_raw": "No informado en ficha pública (Estimación en base a Presupuesto Disponible; garantía fiel cumplimiento 5% — no es monto del contrato)", "monto_num": null, "plazo": "No especificado en ficha pública; verificar bases administrativas", "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=3567-23-LE26", "estado": "Revisar", "observaciones": "Ensayes de mecánica de suelos para complementar diseños municipales de conservación de dos estanques y redes del SSR Copiulemu (trabajo colaborativo Municipalidad de Florida – DOH Biobío). Duda de categoría registrada: servicio de laboratorio geotécnico complementario a diseño, no diseño completo ni estudio hidrogeológico — se clasifica en Diagnósticos Técnicos. ⚠ Región Biobío (a evitar). NO registrada en planilla maestra: Planilla_Maestra_Licitaciones_SSR.xlsx ausente de la carpeta del proyecto desde 2026-07-06 — pendiente restaurar y completar Paso 6 manualmente.", "fdeteccion": "07-07-2026", "finicio_preguntas_raw": "06-07-2026 12:01", "finicio_preguntas_iso": "2026-07-06T12:01:00", "ffinal_preguntas_raw": "09-07-2026 13:00", "ffinal_preguntas_iso": "2026-07-09T13:00:00", "frespuestas_raw": "10-07-2026 20:30", "frespuestas_iso": "2026-07-10T20:30:00", "estado_mp": "Publicada", "fapertura_tecnica_raw": "17-07-2026 15:02", "fapertura_tecnica_iso": "2026-07-17T15:02:00", "fapertura_economica_raw": "17-07-2026 15:02", "fapertura_economica_iso": "2026-07-17T15:02:00", "fadjudicacion_raw": "31-08-2026 20:30", "fadjudicacion_iso": "2026-08-31T20:30:00", "visita_terreno": "No exige", "categoria_display": "Diagnósticos Técnicos", "n_grupo": 1}];
 
-const ACTIVE_CATEGORIES = ["Diseños SSR/APR", "Estudios Hidrogeológicos", "Estudio Tarifario"];
-const CATEGORY_ORDER = [...ACTIVE_CATEGORIES, "Cerradas"];
+const ACTIVE_CATEGORIES = ["Diseños SSR/APR", "Estudios Hidrogeológicos", "Estudio Tarifario", "Diagnósticos Técnicos"];
+const POST_CIERRE_CATEGORIES = ["Apertura Oferta Técnica", "Apertura Oferta Económica", "Resultados"];
+// Pestaña transversal: licitaciones a las que HDG postuló (flag `aplicamos`),
+// independiente de la etapa (categoria_display). Reemplaza en la barra a "Pasadas".
+const POSTULACIONES = "Postulaciones HDG";
+const CATEGORY_ORDER = [...ACTIVE_CATEGORIES, ...POST_CIERRE_CATEGORIES, POSTULACIONES, "Pasadas"];
 const CATEGORY_ICON = {
   "Diseños SSR/APR": "📐",
   "Estudios Hidrogeológicos": "💧",
   "Estudio Tarifario": "📊",
-  "Cerradas": "🗄️"
+  "Diagnósticos Técnicos": "🔍",
+  "Apertura Oferta Técnica": "🗂️",
+  "Apertura Oferta Económica": "💰",
+  "Resultados": "🏁",
+  "Postulaciones HDG": "📋",
+  "Pasadas": "🗄️"
 };
 
 const AVOID_REGIONS = ["biobio", "coquimbo"];
@@ -174,20 +232,44 @@ function daysRemaining(iso){
   return (target - now) / (1000 * 60 * 60 * 24);
 }
 
-function closingBadge(t){
-  const d = daysRemaining(t.fcierre_iso);
-  if(d === null) return "";
-  if(d < 0) return `<span class="badge badge-gray">Cerrada</span>`;
-  if(d <= 2) return `<span class="badge badge-red">Cierra en ${Math.ceil(d)} día(s)</span>`;
-  if(d <= 7) return `<span class="badge badge-orange">Cierra en ${Math.ceil(d)} días</span>`;
-  return `<span class="badge badge-green">Cierra en ${Math.ceil(d)} días</span>`;
-}
-
 function fmtDiasHoras(ms){
   const totalMin = Math.max(0, Math.floor(ms / 60000));
   const d = Math.floor(totalMin / 1440);
   const h = Math.floor((totalMin % 1440) / 60);
   return `${d}d ${h}h`;
+}
+
+function closingBadge(t){
+  const d = daysRemaining(t.fcierre_iso);
+  if(d === null) return "";
+  if(d < 0) return `<span class="badge badge-gray">Cerrada</span>`;
+  const ms = new Date(t.fcierre_iso) - new Date();
+  if(d <= 2) return `<span class="badge badge-red">⏰ Cierra en ${fmtDiasHoras(ms)}</span>`;
+  if(d <= 7) return `<span class="badge badge-orange">Cierra en ${fmtDiasHoras(ms)}</span>`;
+  return `<span class="badge badge-green">Cierra en ${Math.ceil(d)} días</span>`;
+}
+
+// Próximo hito post-cierre según los datos de la ficha MP
+// (apertura técnica → apertura económica → adjudicación).
+function proximoHito(t){
+  const now = new Date();
+  const hitos = [
+    ["Apertura técnica", t.fapertura_tecnica_iso, t.fapertura_tecnica_raw],
+    ["Apertura económica", t.fapertura_economica_iso, t.fapertura_economica_raw],
+    ["Adjudicación", t.fadjudicacion_iso, t.fadjudicacion_raw]
+  ].filter(h => h[1]);
+  for(const [lbl, iso, raw] of hitos){
+    const d = new Date(iso);
+    if(d >= now) return { lbl, raw, ms: d - now };
+  }
+  return null;
+}
+
+function hitoHtml(t){
+  const h = proximoHito(t);
+  if(h) return `<div class="hito-next">➡ ${h.lbl}: ${h.raw} <span class="badge badge-blue">en ${fmtDiasHoras(h.ms)}</span></div>`;
+  if(t.fadjudicacion_raw) return `<div class="hito-next">🏁 Adjudicación: ${t.fadjudicacion_raw} (fecha cumplida)</div>`;
+  return "";
 }
 
 function preguntasBadge(t){
@@ -268,7 +350,7 @@ const COLUMNS = [
     key: "tender", label: "Licitación", sortable: true, filterable: true,
     sortVal: t => (t.nombre || "").toLowerCase(),
     filterVal: t => `${t.nombre} ${t.entidad} ${t.id}`.toLowerCase(),
-    render: t => `<div class="tender-name">${t.nombre}</div><div class="tender-meta">${t.entidad}</div><div class="tender-id">${t.id}</div>`
+    render: t => `<div class="tender-name">${t.nombre}</div><div class="tender-meta">${t.entidad}</div><div class="tender-id">${t.id}${t.fdeteccion ? " · Detectada: " + t.fdeteccion : ""}</div>`
   },
   {
     key: "region", label: "Región / Comuna", sortable: true, filterable: true,
@@ -283,10 +365,16 @@ const COLUMNS = [
     render: t => t.fpub
   },
   {
-    key: "fcierre", label: "Cierre", sortable: true, filterable: true,
+    key: "fcierre", label: "Cierre / Próximo hito", sortable: true, filterable: true,
     sortVal: t => t.fcierre_iso || "",
     filterVal: t => (t.fcierre_raw || "").toLowerCase(),
-    render: t => `<div class="closing-cell">${t.fcierre_raw}${closingBadge(t)}</div>`
+    render: t => {
+      const postCierre = POST_CIERRE_CATEGORIES.includes(t.categoria_display) || t.categoria_display === "Pasadas";
+      if(postCierre){
+        return `<div class="closing-cell">${t.fcierre_raw}<span class="badge badge-gray">Cerrada</span>${hitoHtml(t)}</div>`;
+      }
+      return `<div class="closing-cell">${t.fcierre_raw}${closingBadge(t)}</div>`;
+    }
   },
   {
     key: "preguntas", label: "Preguntas / Resp.", sortable: true, filterable: false,
@@ -315,8 +403,8 @@ const COLUMNS = [
   {
     key: "estado", label: "Estado", sortable: true, filterable: true,
     sortVal: t => (t.estado || "").toLowerCase(),
-    filterVal: t => (t.estado || "").toLowerCase(),
-    render: t => estadoBadge(t.estado)
+    filterVal: t => `${t.estado || ""} ${t.estado_mp || ""}`.toLowerCase(),
+    render: t => estadoBadge(t.estado) + (t.estado_mp ? `<div class="tender-meta" style="margin-top:3px;">MP: ${t.estado_mp}</div>` : "")
   },
   {
     key: "link", label: "", sortable: false, filterable: false,
@@ -324,12 +412,93 @@ const COLUMNS = [
   }
 ];
 
+// ── Pestaña "Postulaciones HDG" ────────────────────────────────────────────
+// Vista transversal de licitaciones con aplicamos===true. Columnas fijas:
+// apertura técnica/económica/adjudicación + resultado + oferentes (nombre y monto).
+function resultadoBadge(r){
+  const m = { "Adjudicada":"badge-green", "No adjudicada":"badge-gray", "Desierta":"badge-gray", "Pendiente":"badge-orange" };
+  return `<span class="badge ${m[r] || "badge-orange"}">${r || "Pendiente"}</span>`;
+}
+function fmtHitoCell(raw, iso){
+  if(!raw) return `<span class="preguntas-na">—</span>`;
+  const past = iso && new Date(iso) <= new Date();
+  return `${raw}${past ? ` <span class="badge badge-gray">✓</span>` : ""}`;
+}
+function oferentesResumen(t){
+  const of = Array.isArray(t.oferentes) ? t.oferentes : [];
+  if(of.length) return `<button class="oferentes-toggle" data-id="${t.id}">▸ ${of.length} oferente${of.length > 1 ? "s" : ""}</button>`;
+  const aperturaPasada = t.fapertura_tecnica_iso && new Date(t.fapertura_tecnica_iso) <= new Date();
+  return aperturaPasada
+    ? `<span class="badge badge-gray">Sin datos aún</span>`
+    : `<span class="preguntas-na">Pendiente apertura</span>`;
+}
+function oferentesDetalleHtml(t){
+  const of = Array.isArray(t.oferentes) ? t.oferentes : [];
+  if(!of.length) return "";
+  const rows = of.map(o => {
+    const monto = (o.monto === null || o.monto === undefined || o.monto === "") ? "—" : fmtCLP(o.monto);
+    const adj = o.adjudicado ? ` <span class="badge badge-green">✔ Adjudicado</span>` : "";
+    return `<div class="ofer-row"><span class="ofer-name">${o.nombre}</span><span class="ofer-monto">${monto}</span>${adj}</div>`;
+  }).join("");
+  return `<div class="ofer-box">${rows}</div>`;
+}
+function postulacionesItems(){
+  return TENDERS.filter(t => t.aplicamos === true && matchesGlobal(t))
+                .slice().sort((a, b) => (a.fcierre_iso || "9999").localeCompare(b.fcierre_iso || "9999"));
+}
+function buildPostulacionesTable(){
+  const heads = ["Licitación", "Cierre", "Apertura técnica", "Apertura económica", "Adjudicación", "Resultado", "Oferentes"];
+  return `<div class="table-wrap"><table class="tenders" data-cat="${POSTULACIONES}">
+    <thead><tr class="header-row">${heads.map(h => `<th>${h}</th>`).join("")}</tr></thead>
+    <tbody id="tbody-${catId(POSTULACIONES)}"></tbody>
+  </table></div>`;
+}
+function renderPostulacionesTbody(){
+  const tb = document.getElementById(`tbody-${catId(POSTULACIONES)}`);
+  if(!tb) return;
+  const items = postulacionesItems();
+  if(!items.length){
+    tb.innerHTML = `<tr class="empty-row"><td colspan="7">Aún no hay licitaciones marcadas como postuladas. Marca la casilla "aplicamos" en la planilla Registro HDG.</td></tr>`;
+  } else {
+    tb.innerHTML = items.map(t => {
+      const main = `<tr class="${isAvoidRegion(t.region) ? "tr-avoid" : ""}">
+        <td><div class="tender-name">${t.nombre}</div><div class="tender-meta">${t.entidad} · ${t.region}</div><div class="tender-id">${t.id}</div><a class="mp-link" href="${t.link}" target="_blank" rel="noopener">Ver ficha →</a></td>
+        <td>${t.fcierre_raw || "—"}</td>
+        <td>${fmtHitoCell(t.fapertura_tecnica_raw, t.fapertura_tecnica_iso)}</td>
+        <td>${fmtHitoCell(t.fapertura_economica_raw, t.fapertura_economica_iso)}</td>
+        <td>${fmtHitoCell(t.fadjudicacion_raw, t.fadjudicacion_iso)}</td>
+        <td>${resultadoBadge(t.resultado_hdg)}</td>
+        <td>${oferentesResumen(t)}</td></tr>`;
+      const det = `<tr class="post-detail" data-detail="${t.id}"><td colspan="7">${oferentesDetalleHtml(t)}</td></tr>`;
+      return main + det;
+    }).join("");
+  }
+  const countEl = document.getElementById(`count-${catId(POSTULACIONES)}`);
+  if(countEl) countEl.textContent = `${items.length} postulaci${items.length === 1 ? "ón" : "ones"}`;
+}
+
 const tableState = {};
+let globalSearch = "";
+let activeTab = "Todas";
 
 function catId(cat){ return cat.replace(/[^a-zA-Z0-9]/g, ""); }
 
+// ── Persistencia liviana de búsqueda y pestaña activa ──────────────────────
+function saveUiState(){
+  try{ localStorage.setItem("hdg_dash_ui", JSON.stringify({ q: globalSearch, tab: activeTab })); }catch(e){}
+}
+function loadUiState(){
+  try{ return JSON.parse(localStorage.getItem("hdg_dash_ui")) || {}; }catch(e){ return {}; }
+}
+
+function matchesGlobal(t){
+  if(!globalSearch) return true;
+  const hay = normalize(`${t.nombre} ${t.entidad} ${t.id} ${t.region} ${t.comuna} ${t.estado} ${t.estado_mp || ""}`);
+  return hay.includes(normalize(globalSearch));
+}
+
 function renderKPIs(){
-  const active = TENDERS.filter(t => t.categoria_display !== "Cerradas");
+  const active = TENDERS.filter(t => t.categoria_display !== "Pasadas");
   const total = active.length;
   const montos = active.filter(t => t.monto_num);
   const montoTotal = montos.reduce((s, t) => s + t.monto_num, 0);
@@ -356,40 +525,86 @@ function renderKPIs(){
     </div>`).join("");
 }
 
+// Panel de próximos cierres (≤7 días), transversal a las pestañas.
+function renderUrgentes(){
+  const el = document.getElementById("urgentes");
+  const urg = TENDERS
+    .filter(t => ACTIVE_CATEGORIES.includes(t.categoria_display))
+    .map(t => ({ t, d: daysRemaining(t.fcierre_iso) }))
+    .filter(x => x.d !== null && x.d >= 0 && x.d <= 7)
+    .sort((a, b) => a.d - b.d);
+  if(!urg.length){ el.style.display = "none"; el.innerHTML = ""; return; }
+  el.style.display = "block";
+  el.innerHTML = `<h2>⏰ Próximos cierres (≤ 7 días) — todas las categorías</h2>` + urg.map(({t, d}) => {
+    const ms = new Date(t.fcierre_iso) - new Date();
+    const badgeCls = d <= 2 ? "badge-red" : "badge-orange";
+    return `<div class="urgent-row">
+      <div class="urgent-ms"><span class="badge ${badgeCls}">${fmtDiasHoras(ms)}</span></div>
+      <div class="urgent-body">
+        <a href="${t.link}" target="_blank" rel="noopener">${t.nombre}</a>
+        <div class="tender-meta">${t.entidad} · ${t.region}${isAvoidRegion(t.region) ? " ⚠" : ""} · Cierre: ${t.fcierre_raw} · ${t.monto_num ? fmtCLP(t.monto_num) : "monto no informado"}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
 function renderChart(){
+  // Agrupa por categoría sustantiva (t.categoria), no por etapa del proceso,
+  // para que las licitaciones post-cierre sigan sumando a su categoría.
   const byCat = {};
   ACTIVE_CATEGORIES.forEach(c => byCat[c] = 0);
-  TENDERS.forEach(t => { if(t.monto_num && t.categoria_display !== "Cerradas") byCat[t.categoria_display] = (byCat[t.categoria_display] || 0) + t.monto_num; });
+  TENDERS.forEach(t => {
+    if(t.monto_num && t.categoria_display !== "Pasadas"){
+      const c = t.categoria || t.categoria_display;
+      byCat[c] = (byCat[c] || 0) + t.monto_num;
+    }
+  });
+  const cats = ACTIVE_CATEGORIES.concat(Object.keys(byCat).filter(c => !ACTIVE_CATEGORIES.includes(c)));
   const max = Math.max(1, ...Object.values(byCat));
-  document.getElementById("chart").innerHTML = ACTIVE_CATEGORIES.map(cat => {
+  document.getElementById("chart").innerHTML = cats.map(cat => {
     const v = byCat[cat] || 0;
     const pct = Math.round((v / max) * 100);
     return `<div class="chart-row">
-      <div class="chart-label">${CATEGORY_ICON[cat]} ${cat}</div>
+      <div class="chart-label">${CATEGORY_ICON[cat] || "📁"} ${cat}</div>
       <div class="chart-bar-wrap"><div class="chart-bar" style="width:${pct}%"></div></div>
       <div class="chart-value">${fmtCLP(v)}</div>
     </div>`;
   }).join("");
 }
 
+function setActiveTab(tab){
+  activeTab = tab;
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+  document.querySelectorAll(".category-block").forEach(block => {
+    block.classList.toggle("hidden", tab !== "Todas" && block.dataset.cat !== tab);
+  });
+  saveUiState();
+}
+
+function tabCount(t){
+  if(t === "Todas") return TENDERS.length;
+  if(t === POSTULACIONES) return TENDERS.filter(x => x.aplicamos === true).length;
+  return TENDERS.filter(x => x.categoria_display === t).length;
+}
 function renderTabs(){
-  const tabs = ["Todas", ...CATEGORY_ORDER];
-  document.getElementById("tabs").innerHTML = tabs.map((t, i) => `<button class="tab-btn${i === 0 ? " active" : ""}" data-tab="${t}">${t === "Todas" ? "Todas" : (CATEGORY_ICON[t] + " " + t)}</button>`).join("");
+  // Se ocultan las pestañas de etapa vacías (p. ej. "Pasadas" mientras no haya
+  // licitaciones en esa etapa); reaparecen automáticamente cuando se pueblan.
+  const tabs = ["Todas", ...CATEGORY_ORDER].filter(t => t === "Todas" || tabCount(t) > 0);
+  document.getElementById("tabs").innerHTML = tabs.map(t => {
+    const count = tabCount(t);
+    const label = t === "Todas" ? "Todas" : (CATEGORY_ICON[t] + " " + t);
+    return `<button class="tab-btn" data-tab="${t}">${label} <span class="tab-count">(${count})</span></button>`;
+  }).join("");
   document.getElementById("tabs").addEventListener("click", e => {
     const btn = e.target.closest(".tab-btn");
     if(!btn) return;
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    const tab = btn.dataset.tab;
-    document.querySelectorAll(".category-block").forEach(block => {
-      block.classList.toggle("hidden", tab !== "Todas" && block.dataset.cat !== tab);
-    });
+    setActiveTab(btn.dataset.tab);
   });
 }
 
 function getFilteredSorted(cat){
   const st = tableState[cat];
-  let items = TENDERS.filter(t => t.categoria_display === cat);
+  let items = TENDERS.filter(t => t.categoria_display === cat && matchesGlobal(t));
   COLUMNS.forEach(col => {
     if(col.filterable && st.filters[col.key]){
       const needle = st.filters[col.key].toLowerCase();
@@ -415,6 +630,7 @@ function rowsHtml(items){
 }
 
 function renderTbody(cat){
+  if(cat === POSTULACIONES){ renderPostulacionesTbody(); return; }
   const id = catId(cat);
   const tbody = document.getElementById(`tbody-${id}`);
   if(!tbody) return;
@@ -448,39 +664,55 @@ function buildCategoryTable(cat){
     if(!col.filterable) return `<td></td>`;
     return `<td><input type="text" class="col-filter" data-cat="${cat}" data-key="${col.key}" placeholder="Filtrar..."></td>`;
   }).join("");
-  return `<table class="tenders" data-cat="${cat}">
+  return `<div class="table-wrap"><table class="tenders" data-cat="${cat}">
     <thead>
       <tr class="header-row">${headCells}</tr>
       <tr class="filter-row">${filterCells}</tr>
     </thead>
     <tbody id="tbody-${id}"></tbody>
-  </table>`;
+  </table></div>`;
 }
 
 function renderCategories(){
+  // Se renderizan TODAS las etapas (incluso vacías) para que cada pestaña
+  // muestre siempre contenido coherente al seleccionarla.
   const blocksHtml = CATEGORY_ORDER.map(cat => {
-    const items = TENDERS.filter(t => t.categoria_display === cat);
-    if(items.length === 0) return "";
+    const isPost = cat === POSTULACIONES;
+    const items = isPost ? TENDERS.filter(t => t.aplicamos === true) : TENDERS.filter(t => t.categoria_display === cat);
     const id = catId(cat);
+    const inner = isPost
+      ? buildPostulacionesTable()
+      : (items.length
+          ? buildCategoryTable(cat)
+          : `<div class="category-empty">Sin licitaciones en esta etapa actualmente.</div>`);
+    const countTxt = isPost ? `${items.length} postulaci${items.length === 1 ? "ón" : "ones"}` : `${items.length} de ${items.length}`;
     return `<div class="category-block" data-cat="${cat}">
       <div class="category-header">
         <h3>${CATEGORY_ICON[cat]} ${cat}</h3>
-        <span class="category-count" id="count-${id}">${items.length} de ${items.length}</span>
+        <span class="category-count" id="count-${id}">${countTxt}</span>
       </div>
-      ${buildCategoryTable(cat)}
+      ${inner}
     </div>`;
   }).join("");
   const container = document.getElementById("categories");
   container.innerHTML = blocksHtml;
 
   CATEGORY_ORDER.forEach(cat => {
-    const items = TENDERS.filter(t => t.categoria_display === cat);
-    if(items.length === 0) return;
     tableState[cat] = { sortKey: null, sortDir: 1, filters: {} };
     renderTbody(cat);
   });
 
   container.addEventListener("click", e => {
+    const tog = e.target.closest(".oferentes-toggle");
+    if(tog){
+      const det = document.querySelector(`tr.post-detail[data-detail="${tog.dataset.id}"]`);
+      if(det){
+        const open = det.classList.toggle("open");
+        tog.classList.toggle("open", open);
+        tog.textContent = (open ? "▾ " : "▸ ") + tog.textContent.replace(/^[▸▾]\s*/, "");
+      }
+      return;
+    }
     const th = e.target.closest(".sortable-th");
     if(!th) return;
     const cat = th.dataset.cat, key = th.dataset.key;
@@ -498,30 +730,50 @@ function renderCategories(){
   });
 }
 
+function initGlobalSearch(){
+  const input = document.getElementById("global-search");
+  input.addEventListener("input", () => {
+    globalSearch = input.value.trim();
+    CATEGORY_ORDER.forEach(cat => renderTbody(cat));
+    saveUiState();
+  });
+  return input;
+}
+
 const FECHA_BARRIDO = "08-07-2026";
 
 function renderMeta(){
   const ultima = (FECHA_BARRIDO && FECHA_BARRIDO.indexOf("FECHA_BARRIDO") === -1) ? FECHA_BARRIDO : "—";
-  document.getElementById("meta-line").textContent = `Hidrogestión SpA · Monitoreo Mercado Público · Último barrido de MP: ${ultima} · ${TENDERS.length} licitaciones en seguimiento`;
+  document.getElementById("meta-line").textContent = `Hidrogestión SpA · Monitoreo Mercado Público · Último barrido de MP: ${ultima} · ${TENDERS.length} licitaciones en seguimiento · Countdowns recalculados cada 60 s (los datos se actualizan con cada barrido)`;
   document.getElementById("footer").innerHTML = `
     <p>Generado automáticamente por el monitoreo diario de licitaciones de ingeniería SSR/APR en Mercado Público. No incluye licitaciones de construcción de obra ni de Asesoría a la Inspección Fiscal (AIF).</p>
-    <p>Las licitaciones cerradas permanecen visibles en la pestaña "Cerradas" durante 10 días desde su fecha de cierre; transcurrido ese plazo se retiran de este dashboard (se mantienen en la planilla maestra para trazabilidad).</p>
+    <p>Una vez vencida la "Fecha de cierre" (plazo límite para presentar la oferta, columna que no se modifica en etapas posteriores), la licitación avanza por los estados "Apertura Oferta Técnica", "Apertura Oferta Económica" y "Resultados" conforme se registran los hitos de la ficha en Mercado Público. Transcurridos 5 días corridos desde la fecha de adjudicación, la licitación se traslada de forma definitiva a la pestaña "Pasadas", donde permanece visible de manera indefinida para trazabilidad (no se retira nunca de este dashboard ni de la planilla maestra).</p>
     <p>Las filas resaltadas en rojo corresponden a licitaciones en regiones fuera del foco prioritario de Hidrogestión (Biobío, Coquimbo) — se mantienen en el listado por trazabilidad, no se excluyen automáticamente.</p>
     <p>El nivel de interés/prioridad de cada licitación es un criterio del equipo y no se incluye en este dashboard.</p>
   `;
 }
 
 renderKPIs();
+renderUrgentes();
 renderChart();
 renderTabs();
 renderCategories();
 renderMeta();
 
-// Actualiza contadores de días/horas (preguntas, cierre) cada 60 s sin recargar la página.
-// Solo refresca KPIs y el cuerpo de las tablas (no las cabeceras), preservando el orden/filtro
-// que el usuario haya aplicado y sin duplicar listeners.
+// Restaurar estado de UI (búsqueda y pestaña) de la sesión anterior.
+(function restoreUi(){
+  const st = loadUiState();
+  const input = initGlobalSearch();
+  if(st.q){ input.value = st.q; globalSearch = st.q; CATEGORY_ORDER.forEach(cat => renderTbody(cat)); }
+  setActiveTab(st.tab && ["Todas", ...CATEGORY_ORDER].includes(st.tab) ? st.tab : "Todas");
+})();
+
+// Actualiza contadores de días/horas (cierre, preguntas, hitos) cada 60 s sin recargar
+// la página. Solo refresca KPIs, panel de urgentes y cuerpos de tabla (no cabeceras),
+// preservando orden/filtros aplicados y sin duplicar listeners.
 setInterval(() => {
   renderKPIs();
+  renderUrgentes();
   CATEGORY_ORDER.forEach(cat => { if(tableState[cat]) renderTbody(cat); });
 }, 60000);
 </script>
