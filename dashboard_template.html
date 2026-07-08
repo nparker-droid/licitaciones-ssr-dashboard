@@ -88,6 +88,10 @@
   .ofer-row{ display:flex; align-items:center; gap:10px; padding:5px 9px; background:var(--gray-50,#f6f8fc); border-radius:5px; }
   .ofer-name{ flex:1; font-weight:600; }
   .ofer-monto{ font-variant-numeric:tabular-nums; color:var(--blue-900,#1F3864); font-weight:600; }
+  .post-toolbar{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:10px; padding:10px 12px; background:var(--gray-50,#f6f8fc); border:1px solid var(--gray-200,#e2e8f0); border-radius:8px; }
+  .drive-btn{ display:inline-block; background:#0F9D58; color:#fff; text-decoration:none; padding:8px 14px; border-radius:6px; font-weight:600; font-size:13px; }
+  .drive-btn:hover{ background:#0b8043; }
+  .post-nota{ font-size:12px; color:#5f6b7a; flex:1; min-width:220px; }
   .category-header{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px; }
   .category-header h3{ margin:0; font-size:16px; color:var(--blue-900); }
   .category-count{ font-size:12px; color:var(--gray-400); }
@@ -164,14 +168,7 @@
 </header>
 
 <main>
-  <div class="kpi-grid" id="kpi-grid"></div>
-
   <div class="urgent-card" id="urgentes"></div>
-
-  <div class="chart-card">
-    <h2>Monto estimado en seguimiento por categoría (todas las etapas, excluye Pasadas)</h2>
-    <div id="chart"></div>
-  </div>
 
   <div class="search-bar">
     <input id="global-search" type="search" placeholder="🔎 Buscar en todas las etapas: nombre, entidad, ID, región, comuna, estado...">
@@ -204,6 +201,19 @@ const CATEGORY_ICON = {
   "Postulaciones HDG": "📋",
   "Pasadas": "🗄️"
 };
+
+// Barra simplificada de pestañas: Todas · SSR (vigentes) · Postulaciones HDG.
+const TABS = ["Todas", "SSR", POSTULACIONES];
+const TAB_TITULO = {
+  "Todas": "📂 Todas las licitaciones",
+  "SSR": "💧 SSR — licitaciones vigentes (aún se puede ofertar)",
+  "Postulaciones HDG": "📋 Postulaciones HDG"
+};
+function tabItems(tab){
+  if(tab === POSTULACIONES) return TENDERS.filter(t => t.aplicamos === true);
+  if(tab === "SSR") return TENDERS.filter(t => { const d = daysRemaining(t.fcierre_iso); return d !== null && d >= 0; });
+  return TENDERS.slice();
+}
 
 const AVOID_REGIONS = ["biobio", "coquimbo"];
 
@@ -448,7 +458,11 @@ function postulacionesItems(){
 }
 function buildPostulacionesTable(){
   const heads = ["Licitación", "Cierre", "Apertura técnica", "Apertura económica", "Adjudicación", "Resultado", "Oferentes"];
-  return `<div class="table-wrap"><table class="tenders" data-cat="${POSTULACIONES}">
+  const barra = `<div class="post-toolbar">
+    <a class="drive-btn" href="https://docs.google.com/spreadsheets/d/1DRcHeateStv9Hzh4VlZQYTspMp9feKTZKCJTDzhv9o8/edit" target="_blank" rel="noopener">✏️ Editar postulaciones (planilla en Drive)</a>
+    <span class="post-nota">Marca la casilla «aplicamos» en la planilla Registro HDG. Los cambios se reflejan en la actualización diaria del dashboard (barrido ~14:00 h, hora de Chile; puede tardar hasta ~24 h).</span>
+  </div>`;
+  return barra + `<div class="table-wrap"><table class="tenders" data-cat="${POSTULACIONES}">
     <thead><tr class="header-row">${heads.map(h => `<th>${h}</th>`).join("")}</tr></thead>
     <tbody id="tbody-${catId(POSTULACIONES)}"></tbody>
   </table></div>`;
@@ -576,23 +590,16 @@ function setActiveTab(tab){
   activeTab = tab;
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
   document.querySelectorAll(".category-block").forEach(block => {
-    block.classList.toggle("hidden", tab !== "Todas" && block.dataset.cat !== tab);
+    block.classList.toggle("hidden", block.dataset.cat !== tab);
   });
   saveUiState();
 }
 
-function tabCount(t){
-  if(t === "Todas") return TENDERS.length;
-  if(t === POSTULACIONES) return TENDERS.filter(x => x.aplicamos === true).length;
-  return TENDERS.filter(x => x.categoria_display === t).length;
-}
+function tabCount(t){ return tabItems(t).length; }
 function renderTabs(){
-  // Se ocultan las pestañas de etapa vacías (p. ej. "Pasadas" mientras no haya
-  // licitaciones en esa etapa); reaparecen automáticamente cuando se pueblan.
-  const tabs = ["Todas", ...CATEGORY_ORDER].filter(t => t === "Todas" || tabCount(t) > 0);
-  document.getElementById("tabs").innerHTML = tabs.map(t => {
+  document.getElementById("tabs").innerHTML = TABS.map(t => {
     const count = tabCount(t);
-    const label = t === "Todas" ? "Todas" : (CATEGORY_ICON[t] + " " + t);
+    const label = TAB_TITULO[t] || t;
     return `<button class="tab-btn" data-tab="${t}">${label} <span class="tab-count">(${count})</span></button>`;
   }).join("");
   document.getElementById("tabs").addEventListener("click", e => {
@@ -604,7 +611,7 @@ function renderTabs(){
 
 function getFilteredSorted(cat){
   const st = tableState[cat];
-  let items = TENDERS.filter(t => t.categoria_display === cat && matchesGlobal(t));
+  let items = tabItems(cat).filter(t => matchesGlobal(t));
   COLUMNS.forEach(col => {
     if(col.filterable && st.filters[col.key]){
       const needle = st.filters[col.key].toLowerCase();
@@ -635,7 +642,7 @@ function renderTbody(cat){
   const tbody = document.getElementById(`tbody-${id}`);
   if(!tbody) return;
   const items = getFilteredSorted(cat);
-  const totalForCat = TENDERS.filter(t => t.categoria_display === cat).length;
+  const totalForCat = tabItems(cat).length;
   tbody.innerHTML = items.length ? rowsHtml(items) : `<tr class="empty-row"><td colspan="${COLUMNS.length}">Sin resultados para el filtro aplicado.</td></tr>`;
   const countEl = document.getElementById(`count-${id}`);
   if(countEl) countEl.textContent = `${items.length} de ${totalForCat}`;
@@ -676,19 +683,19 @@ function buildCategoryTable(cat){
 function renderCategories(){
   // Se renderizan TODAS las etapas (incluso vacías) para que cada pestaña
   // muestre siempre contenido coherente al seleccionarla.
-  const blocksHtml = CATEGORY_ORDER.map(cat => {
+  const blocksHtml = TABS.map(cat => {
     const isPost = cat === POSTULACIONES;
-    const items = isPost ? TENDERS.filter(t => t.aplicamos === true) : TENDERS.filter(t => t.categoria_display === cat);
+    const items = tabItems(cat);
     const id = catId(cat);
     const inner = isPost
       ? buildPostulacionesTable()
       : (items.length
           ? buildCategoryTable(cat)
-          : `<div class="category-empty">Sin licitaciones en esta etapa actualmente.</div>`);
-    const countTxt = isPost ? `${items.length} postulaci${items.length === 1 ? "ón" : "ones"}` : `${items.length} de ${items.length}`;
+          : `<div class="category-empty">Sin licitaciones para esta vista.</div>`);
+    const countTxt = isPost ? `${items.length} postulaci${items.length === 1 ? "ón" : "ones"}` : `${items.length} licitaci${items.length === 1 ? "ón" : "ones"}`;
     return `<div class="category-block" data-cat="${cat}">
       <div class="category-header">
-        <h3>${CATEGORY_ICON[cat]} ${cat}</h3>
+        <h3>${TAB_TITULO[cat] || cat}</h3>
         <span class="category-count" id="count-${id}">${countTxt}</span>
       </div>
       ${inner}
@@ -697,7 +704,7 @@ function renderCategories(){
   const container = document.getElementById("categories");
   container.innerHTML = blocksHtml;
 
-  CATEGORY_ORDER.forEach(cat => {
+  TABS.forEach(cat => {
     tableState[cat] = { sortKey: null, sortDir: 1, filters: {} };
     renderTbody(cat);
   });
@@ -734,7 +741,7 @@ function initGlobalSearch(){
   const input = document.getElementById("global-search");
   input.addEventListener("input", () => {
     globalSearch = input.value.trim();
-    CATEGORY_ORDER.forEach(cat => renderTbody(cat));
+    TABS.forEach(cat => renderTbody(cat));
     saveUiState();
   });
   return input;
@@ -753,9 +760,7 @@ function renderMeta(){
   `;
 }
 
-renderKPIs();
 renderUrgentes();
-renderChart();
 renderTabs();
 renderCategories();
 renderMeta();
@@ -764,17 +769,16 @@ renderMeta();
 (function restoreUi(){
   const st = loadUiState();
   const input = initGlobalSearch();
-  if(st.q){ input.value = st.q; globalSearch = st.q; CATEGORY_ORDER.forEach(cat => renderTbody(cat)); }
-  setActiveTab(st.tab && ["Todas", ...CATEGORY_ORDER].includes(st.tab) ? st.tab : "Todas");
+  if(st.q){ input.value = st.q; globalSearch = st.q; TABS.forEach(cat => renderTbody(cat)); }
+  setActiveTab(st.tab && TABS.includes(st.tab) ? st.tab : "Todas");
 })();
 
 // Actualiza contadores de días/horas (cierre, preguntas, hitos) cada 60 s sin recargar
 // la página. Solo refresca KPIs, panel de urgentes y cuerpos de tabla (no cabeceras),
 // preservando orden/filtros aplicados y sin duplicar listeners.
 setInterval(() => {
-  renderKPIs();
   renderUrgentes();
-  CATEGORY_ORDER.forEach(cat => { if(tableState[cat]) renderTbody(cat); });
+  TABS.forEach(cat => { if(tableState[cat]) renderTbody(cat); });
 }, 60000);
 </script>
 </body>
