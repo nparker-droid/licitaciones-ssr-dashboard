@@ -31,7 +31,7 @@
   "fadjudicacion_raw": "20-07-2026 16:00",
   "fadjudicacion_iso": "2026-07-20T16:00:00",
   "categoria_display": "Resultados",
-  "n_grupo": 5,
+  "n_grupo": 6,
   "visita_terreno": "No exige"
  },
  {
@@ -66,7 +66,7 @@
   "fadjudicacion_raw": "26-08-2026 12:01",
   "fadjudicacion_iso": "2026-08-26T12:01:00",
   "categoria_display": "Resultados",
-  "n_grupo": 3,
+  "n_grupo": 4,
   "visita_terreno": "No exige"
  },
  {
@@ -100,8 +100,8 @@
   "fapertura_economica_iso": "2026-07-09T10:30:00",
   "fadjudicacion_raw": "27-07-2026 17:00",
   "fadjudicacion_iso": "2026-07-27T17:00:00",
-  "categoria_display": "Apertura Oferta Económica",
-  "n_grupo": 1,
+  "categoria_display": "Resultados",
+  "n_grupo": 7,
   "visita_terreno": "Obligatoria",
   "visita_terreno_fecha": "17-04-2026 10:00"
  },
@@ -137,7 +137,7 @@
   "fadjudicacion_raw": "10-09-2026 17:00",
   "fadjudicacion_iso": "2026-09-10T17:00:00",
   "categoria_display": "Apertura Oferta Económica",
-  "n_grupo": 3,
+  "n_grupo": 2,
   "visita_terreno": "No exige"
  },
  {
@@ -172,7 +172,7 @@
   "fadjudicacion_raw": "03-08-2026 14:10",
   "fadjudicacion_iso": "2026-08-03T14:10:00",
   "categoria_display": "Resultados",
-  "n_grupo": 1,
+  "n_grupo": 2,
   "visita_terreno": "No exige"
  },
  {
@@ -207,7 +207,7 @@
   "fadjudicacion_raw": "28-07-2026 13:00",
   "fadjudicacion_iso": "2026-07-28T13:00:00",
   "categoria_display": "Apertura Oferta Económica",
-  "n_grupo": 4,
+  "n_grupo": 3,
   "visita_terreno": "Opcional",
   "visita_terreno_fecha": "02-06-2026 11:00",
   "aplicamos": true,
@@ -250,7 +250,7 @@
   "fadjudicacion_raw": "10-08-2026 15:29",
   "fadjudicacion_iso": "2026-08-10T15:29:00",
   "categoria_display": "Apertura Oferta Económica",
-  "n_grupo": 2,
+  "n_grupo": 1,
   "visita_terreno": "No exige"
  },
  {
@@ -285,7 +285,7 @@
   "fadjudicacion_raw": "14-07-2026 18:00",
   "fadjudicacion_iso": "2026-07-14T18:00:00",
   "categoria_display": "Resultados",
-  "n_grupo": 2,
+  "n_grupo": 3,
   "visita_terreno": "No exige"
  },
  {
@@ -320,7 +320,7 @@
   "fadjudicacion_raw": "15-07-2026 15:58",
   "fadjudicacion_iso": "2026-07-15T15:58:00",
   "categoria_display": "Resultados",
-  "n_grupo": 4,
+  "n_grupo": 5,
   "visita_terreno": "Obligatoria",
   "visita_terreno_fecha": "05-06-2026 10:30"
  },
@@ -356,7 +356,7 @@
   "fadjudicacion_raw": "17-07-2026 18:30",
   "fadjudicacion_iso": "2026-07-17T18:30:00",
   "categoria_display": "Resultados",
-  "n_grupo": 8,
+  "n_grupo": 10,
   "visita_terreno": "Obligatoria",
   "visita_terreno_fecha": "19-06-2026 12:00"
  },
@@ -427,7 +427,7 @@
   "fadjudicacion_raw": "22-07-2026 18:00",
   "fadjudicacion_iso": "2026-07-22T18:00:00",
   "categoria_display": "Resultados",
-  "n_grupo": 9,
+  "n_grupo": 11,
   "visita_terreno": "No exige"
  },
  {
@@ -462,7 +462,7 @@
   "fadjudicacion_raw": "22-07-2026 15:00",
   "fadjudicacion_iso": "2026-07-22T15:00:00",
   "categoria_display": "Resultados",
-  "n_grupo": 6,
+  "n_grupo": 8,
   "visita_terreno": "Exige",
   "visita_terreno_fecha": "18-06-2026 09:00"
  },
@@ -533,7 +533,7 @@
   "fadjudicacion_raw": "06-07-2026 12:15",
   "fadjudicacion_iso": "2026-07-06T12:15:00",
   "categoria_display": "Resultados",
-  "n_grupo": 7,
+  "n_grupo": 9,
   "visita_terreno": "No exige"
  },
  {
@@ -708,7 +708,7 @@
   "fadjudicacion_raw": "24-08-2026 18:57",
   "fadjudicacion_iso": "2026-08-24T18:57:00",
   "categoria_display": "Resultados",
-  "n_grupo": 5,
+  "n_grupo": 1,
   "visita_terreno": "Exige",
   "visita_terreno_fecha": "25-05-2026 10:00",
   "aplicamos": true,
@@ -751,7 +751,7 @@
   "fadjudicacion_raw": "29-06-2026 18:01",
   "fadjudicacion_iso": "2026-06-29T18:01:00",
   "categoria_display": "Pasadas",
-  "n_grupo": 5,
+  "n_grupo": 1,
   "visita_terreno": "No exige",
   "aplicamos": true,
   "resultado_hdg": "Pendiente",
