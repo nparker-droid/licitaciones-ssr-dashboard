@@ -714,9 +714,9 @@
   "aplicamos": true,
   "resultado_hdg": "Pendiente",
   "oferentes": [
-   {"nombre": "HRA Ingenieros Consultores SpA", "monto": null, "adjudicado": false},
-   {"nombre": "INGEMAB Ingeniería y Consultoría", "monto": null, "adjudicado": false},
-   {"nombre": "Hidrogestión SpA", "monto": null, "adjudicado": false}
+   {"nombre": "HRA Ingenieros Consultores SpA", "monto": null, "adjudicado": false, "estado": "Rechazada"},
+   {"nombre": "INGEMAB Ingeniería y Consultoría", "monto": 193812412, "adjudicado": false, "estado": "Aceptada"},
+   {"nombre": "Hidrogestión SpA", "monto": null, "adjudicado": false, "estado": "Rechazada"}
   ]
  },
  {
@@ -756,9 +756,9 @@
   "aplicamos": true,
   "resultado_hdg": "Pendiente",
   "oferentes": [
-   {"nombre": "ICASS", "monto": null, "adjudicado": false},
-   {"nombre": "Hidrogestión SpA", "monto": null, "adjudicado": false},
-   {"nombre": "HRA Ingenieros Consultores SpA", "monto": null, "adjudicado": false}
+   {"nombre": "ICASS", "monto": 107139500, "adjudicado": false, "estado": "Aceptada"},
+   {"nombre": "Hidrogestión SpA", "monto": 116199665, "adjudicado": false, "estado": "Aceptada"},
+   {"nombre": "HRA Ingenieros Consultores SpA", "monto": 133672294, "adjudicado": false, "estado": "Aceptada"}
   ]
  }
 ]
