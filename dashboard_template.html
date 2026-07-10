@@ -454,9 +454,11 @@ function oferentesDetalleHtml(t){
   const of = Array.isArray(t.oferentes) ? t.oferentes : [];
   if(!of.length) return "";
   const rows = of.map(o => {
-    const monto = (o.monto === null || o.monto === undefined || o.monto === "") ? "—" : fmtCLP(o.monto);
+    const rechazada = o.estado === "Rechazada";
+    const montoTxt = (o.monto === null || o.monto === undefined || o.monto === "") ? (rechazada ? "" : "—") : fmtCLP(o.monto);
+    const estBadge = rechazada ? ` <span class="badge badge-gray">Rechazada</span>` : "";
     const adj = o.adjudicado ? ` <span class="badge badge-green">✔ Adjudicado</span>` : "";
-    return `<div class="ofer-row"><span class="ofer-name">${o.nombre}</span><span class="ofer-monto">${monto}</span>${adj}</div>`;
+    return `<div class="ofer-row"><span class="ofer-name">${o.nombre}</span><span class="ofer-monto">${montoTxt}</span>${estBadge}${adj}</div>`;
   }).join("");
   return `<div class="ofer-box">${rows}</div>`;
 }
