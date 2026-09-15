@@ -10,6 +10,7 @@ Mercado Público), y escribe el resultado en index.html (listo para commit + pus
 + deploy en Vercel).
 """
 import json
+import os
 from datetime import datetime
 
 try:
