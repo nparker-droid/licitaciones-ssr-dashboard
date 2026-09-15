@@ -14,10 +14,15 @@ from datetime import datetime
 
 try:
     from zoneinfo import ZoneInfo
-    ahora = datetime.now(ZoneInfo("America/Santiago"))
+    TZ = ZoneInfo("America/Santiago")
 except Exception:
-    ahora = datetime.now()
-fecha_barrido = ahora.strftime("%d-%m-%Y")
+    TZ = None
+
+JSON_PATH = "dashboard_data_fixed.json"
+
+mtime = os.path.getmtime(JSON_PATH)
+ts = datetime.fromtimestamp(mtime, TZ) if TZ else datetime.fromtimestamp(mtime)
+fecha_barrido = ts.strftime("%d-%m-%Y")
 
 with open("dashboard_data_fixed.json", encoding="utf-8") as f:
     data = json.load(f)
