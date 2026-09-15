@@ -2,7 +2,7 @@ name: Actualizar Dashboard Licitaciones
 
 on:
   schedule:
-    # Corre todos los días a las 14:00 UTC (11:00 Santiago, hora de invierno)
+    # Corre todos los días a las 12:25 UTC
     # Ajustar según cuándo corre el monitoreo de Cowork
     - cron: '25 12 * * *'
   workflow_dispatch:  # Permite lanzar manualmente desde GitHub Actions
