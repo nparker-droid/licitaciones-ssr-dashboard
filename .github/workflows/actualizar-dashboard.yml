@@ -4,7 +4,7 @@ on:
   schedule:
     # Corre todos los días a las 14:00 UTC (11:00 Santiago, hora de invierno)
     # Ajustar según cuándo corre el monitoreo de Cowork
-    - cron: '0 14 * * *'
+    - cron: '25 12 * * *'
   workflow_dispatch:  # Permite lanzar manualmente desde GitHub Actions
 
 # Evita que dos corridas se solapen y provoquen rechazos non-fast-forward al pushear
@@ -24,17 +24,20 @@ jobs:
 
       - name: Descargar datos actualizados desde Google Drive
         run: |
-          curl -L \
+          curl -R -L \
             "https://drive.usercontent.google.com/download?id=1ByC2B3dedB0_o4TS4vloAJvqSc42ZSn5&export=download" \
             -o dashboard_data_fixed.json
 
       - name: Validar JSON descargado
         run: |
           python3 -c "
-          import json, sys
+          import json, os, datetime
           with open('dashboard_data_fixed.json') as f:
               data = json.load(f)
-          print(f'OK: {len(data)} licitaciones en el JSON descargado')
+          edad = (datetime.datetime.now().timestamp() - os.path.getmtime('dashboard_data_fixed.json')) / 86400
+          print(f'OK: {len(data)} licitaciones, JSON con {edad:.1f} dias de antiguedad')
+          if edad > 3:
+              print(f'::warning::El JSON en Drive tiene {edad:.1f} dias sin actualizarse. Revisar la tarea de barrido.')
           "
 
       - name: Regenerar index.html
