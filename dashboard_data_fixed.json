@@ -1249,7 +1249,7 @@
     "categoria_display": "Apertura Oferta Económica",
     "n_grupo": 2,
     "visita_terreno": "No exige",
-    "aplicamos": false,
+    "aplicamos": true,
     "resultado_hdg": "Pendiente",
     "oferentes": []
   },
