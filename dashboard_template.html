@@ -471,6 +471,7 @@ function buildPostulacionesTable(){
   const barra = `<div class="post-toolbar">
     <a class="drive-btn" href="https://docs.google.com/spreadsheets/d/1pKh-5Y4DRM7_SKVd33kXRbp2nzKSjHHqHIjD4TeTvsk/edit" target="_blank" rel="noopener">✏️ Editar postulaciones (planilla en Drive)</a>
     <span class="post-nota">Marca la casilla «aplicamos» en la planilla Registro HDG. Los cambios se reflejan en la actualización diaria del dashboard (barrido ~06:00 h, hora de Chile; puede tardar hasta ~24 h).</span>
+  </div>`;
   return barra + `<div class="table-wrap"><table class="tenders" data-cat="${POSTULACIONES}">
     <thead><tr class="header-row">${heads.map(h => `<th>${h}</th>`).join("")}</tr></thead>
     <tbody id="tbody-${catId(POSTULACIONES)}"></tbody>
