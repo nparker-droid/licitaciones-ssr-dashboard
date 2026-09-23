@@ -109,10 +109,10 @@
     "categoria_display": "Pasadas",
     "n_grupo": 8,
     "visita_terreno": "Obligatoria",
-    "visita_terreno_fecha": "17-04-2026 10:00",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": []
+    "oferentes": [],
+    "visita_terreno_fecha": "17-04-2026 10:00"
   },
   {
     "id": "1505-10-O126",
@@ -224,7 +224,6 @@
     "categoria_display": "Pasadas",
     "n_grupo": 14,
     "visita_terreno": "Opcional",
-    "visita_terreno_fecha": "02-06-2026 11:00",
     "aplicamos": true,
     "resultado_hdg": "No adjudicada",
     "oferentes": [
@@ -246,7 +245,8 @@
         "adjudicado": false,
         "estado": "Aceptada"
       }
-    ]
+    ],
+    "visita_terreno_fecha": "02-06-2026 11:00"
   },
   {
     "id": "1507-8-O126",
@@ -358,10 +358,10 @@
     "categoria_display": "Pasadas",
     "n_grupo": 6,
     "visita_terreno": "Obligatoria",
-    "visita_terreno_fecha": "05-06-2026 10:30",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": []
+    "oferentes": [],
+    "visita_terreno_fecha": "05-06-2026 10:30"
   },
   {
     "id": "3676-18-LP26",
@@ -397,10 +397,10 @@
     "categoria_display": "Pasadas",
     "n_grupo": 12,
     "visita_terreno": "Obligatoria",
-    "visita_terreno_fecha": "19-06-2026 12:00",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": []
+    "oferentes": [],
+    "visita_terreno_fecha": "19-06-2026 12:00"
   },
   {
     "id": "817-11-O126",
@@ -512,10 +512,10 @@
     "categoria_display": "Pasadas",
     "n_grupo": 9,
     "visita_terreno": "Exige",
-    "visita_terreno_fecha": "18-06-2026 09:00",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": []
+    "oferentes": [],
+    "visita_terreno_fecha": "18-06-2026 09:00"
   },
   {
     "id": "896-9-LE26",
@@ -779,7 +779,6 @@
     "categoria_display": "Pasadas",
     "n_grupo": 2,
     "visita_terreno": "Exige",
-    "visita_terreno_fecha": "25-05-2026 10:00",
     "aplicamos": true,
     "resultado_hdg": "No adjudicada",
     "oferentes": [
@@ -801,7 +800,8 @@
         "adjudicado": false,
         "estado": "Rechazada"
       }
-    ]
+    ],
+    "visita_terreno_fecha": "25-05-2026 10:00"
   },
   {
     "id": "5663-2-O126",
@@ -1363,10 +1363,10 @@
     "categoria_display": "Diseños SSR/APR",
     "n_grupo": 1,
     "visita_terreno": "Obligatoria",
-    "visita_terreno_fecha": "08-09-2026 11:00",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": []
+    "oferentes": [],
+    "visita_terreno_fecha": "08-09-2026 11:00"
   },
   {
     "id": "2794-18-LP26",
@@ -1475,6 +1475,44 @@
     "fapertura_economica_iso": "2026-10-06T15:07:00",
     "fadjudicacion_raw": "20-10-2026 15:07",
     "fadjudicacion_iso": "2026-10-20T15:07:00",
+    "categoria_display": "Diseños SSR/APR",
+    "n_grupo": 5,
+    "visita_terreno": "No exige",
+    "aplicamos": false,
+    "resultado_hdg": "Pendiente",
+    "oferentes": []
+  },
+  {
+    "id": "1063487-31-O126",
+    "nombre": "Diseño de Ingeniería Mejoramiento y Ampliación SSR Buchupureo, comuna de Cobquecura",
+    "entidad": "MOP - Dirección de Obras Hidráulicas, XVI Región de Ñuble",
+    "region": "Ñuble",
+    "comuna": "Cobquecura",
+    "categoria": "Diseños SSR/APR",
+    "interes": "Medio",
+    "fpub": "22-09-2026",
+    "fcierre_raw": "06-10-2026 08:00",
+    "fcierre_iso": "2026-10-06T08:00:00",
+    "monto_raw": "No informado en ficha pública (Suma Alzada)",
+    "monto_num": null,
+    "plazo": "No especificado en ficha; verificar TdR",
+    "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=1063487-31-O126",
+    "estado": "Revisar",
+    "observaciones": "Diseño de ingeniería SSR, ámbito Consultor (DS48), tipo de gasto 'Diseño de Ingeniería'. Unidad de compra: DOH Región del Ñuble. Monto no informado en ficha pública. Plazo de preguntas muy breve (cierra 25-09-2026).",
+    "fdeteccion": "23-09-2026",
+    "finicio_preguntas_raw": "22-09-2026 14:00:00",
+    "finicio_preguntas_iso": "2026-09-22T14:00:00",
+    "ffinal_preguntas_raw": "25-09-2026 12:00:00",
+    "ffinal_preguntas_iso": "2026-09-25T12:00:00",
+    "frespuestas_raw": "30-09-2026 18:00:00",
+    "frespuestas_iso": "2026-09-30T18:00:00",
+    "estado_mp": "Publicada",
+    "fapertura_tecnica_raw": "06-10-2026 09:00",
+    "fapertura_tecnica_iso": "2026-10-06T09:00:00",
+    "fapertura_economica_raw": "15-10-2026 09:00",
+    "fapertura_economica_iso": "2026-10-15T09:00:00",
+    "fadjudicacion_raw": "15-12-2026 10:00",
+    "fadjudicacion_iso": "2026-12-15T10:00:00",
     "categoria_display": "Diseños SSR/APR",
     "n_grupo": 4,
     "visita_terreno": "No exige",
