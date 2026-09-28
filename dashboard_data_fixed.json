@@ -1231,7 +1231,7 @@
     "plazo": "No especificado en ficha; verificar TdR",
     "link": "https://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=5663-10-O126",
     "estado": "Revisar",
-    "observaciones": "Actualización de especialidades del diseño de mejoramiento de los SSR de las caletas Chanavaya, Río Seco y San Marcos (Iquique). Ámbito Consultor DS48, Tipo de gastos Diseño de Ingeniería, especialidad Ing. Civil 4.8 Obras Sanitarias 2da categoría, MOP DOH I Región de Tarapacá. Relacionada a la línea 5663-5-O126 (borde costero Iquique, postulada por HDG). Cliente con 8 reclamos por pago no oportuno. Detección vía keyword 'SSR'. Fila xlsx pendiente de sincronización manual (carpeta Drive no montada esta sesión).",
+    "observaciones": "Actualización de especialidades del diseño de mejoramiento de los SSR de las caletas Chanavaya, Río Seco y San Marcos (Iquique). Ámbito Consultor DS48, Tipo de gastos Diseño de Ingeniería, especialidad Ing. Civil 4.8 Obras Sanitarias 2da categoría, MOP DOH I Región de Tarapacá. Relacionada a la línea 5663-5-O126 (borde costero Iquique, postulada por HDG). Cliente con 8 reclamos por pago no oportuno. Detección vía keyword 'SSR'. Acta de apertura técnica (21-09-2026): 3 oferentes — Hidrogestión SpA (96.693.430-1) e INGEMAB Ingeniería y Consultoría (76.038.506-9) cumplen con la presentación de antecedentes; HRA Ingenieros Consultores SpA (78.508.740-2) NO cumple. Montos se conocen en la apertura económica del 01-10-2026.",
     "fdeteccion": "24-08-2026",
     "finicio_preguntas_raw": "21-08-2026 12:01",
     "finicio_preguntas_iso": "2026-08-21T12:01:00",
@@ -1251,7 +1251,26 @@
     "visita_terreno": "No exige",
     "aplicamos": true,
     "resultado_hdg": "Pendiente",
-    "oferentes": []
+    "oferentes": [
+      {
+        "nombre": "Hidrogestión SpA",
+        "monto": null,
+        "adjudicado": false,
+        "estado": ""
+      },
+      {
+        "nombre": "HRA Ingenieros Consultores SpA",
+        "monto": null,
+        "adjudicado": false,
+        "estado": ""
+      },
+      {
+        "nombre": "INGEMAB Ingeniería y Consultoría",
+        "monto": null,
+        "adjudicado": false,
+        "estado": ""
+      }
+    ]
   },
   {
     "id": "4121-24-LE26",
