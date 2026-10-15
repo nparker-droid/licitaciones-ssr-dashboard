@@ -109,10 +109,10 @@
     "categoria_display": "Pasadas",
     "n_grupo": 8,
     "visita_terreno": "Obligatoria",
+    "visita_terreno_fecha": "17-04-2026 10:00",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": [],
-    "visita_terreno_fecha": "17-04-2026 10:00"
+    "oferentes": []
   },
   {
     "id": "1505-10-O126",
@@ -224,6 +224,7 @@
     "categoria_display": "Pasadas",
     "n_grupo": 14,
     "visita_terreno": "Opcional",
+    "visita_terreno_fecha": "02-06-2026 11:00",
     "aplicamos": true,
     "resultado_hdg": "No adjudicada",
     "oferentes": [
@@ -245,8 +246,7 @@
         "adjudicado": false,
         "estado": "Aceptada"
       }
-    ],
-    "visita_terreno_fecha": "02-06-2026 11:00"
+    ]
   },
   {
     "id": "1507-8-O126",
@@ -358,10 +358,10 @@
     "categoria_display": "Pasadas",
     "n_grupo": 6,
     "visita_terreno": "Obligatoria",
+    "visita_terreno_fecha": "05-06-2026 10:30",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": [],
-    "visita_terreno_fecha": "05-06-2026 10:30"
+    "oferentes": []
   },
   {
     "id": "3676-18-LP26",
@@ -397,10 +397,10 @@
     "categoria_display": "Pasadas",
     "n_grupo": 12,
     "visita_terreno": "Obligatoria",
+    "visita_terreno_fecha": "19-06-2026 12:00",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": [],
-    "visita_terreno_fecha": "19-06-2026 12:00"
+    "oferentes": []
   },
   {
     "id": "817-11-O126",
@@ -512,10 +512,10 @@
     "categoria_display": "Pasadas",
     "n_grupo": 9,
     "visita_terreno": "Exige",
+    "visita_terreno_fecha": "18-06-2026 09:00",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": [],
-    "visita_terreno_fecha": "18-06-2026 09:00"
+    "oferentes": []
   },
   {
     "id": "896-9-LE26",
@@ -779,6 +779,7 @@
     "categoria_display": "Pasadas",
     "n_grupo": 2,
     "visita_terreno": "Exige",
+    "visita_terreno_fecha": "25-05-2026 10:00",
     "aplicamos": true,
     "resultado_hdg": "No adjudicada",
     "oferentes": [
@@ -800,8 +801,7 @@
         "adjudicado": false,
         "estado": "Rechazada"
       }
-    ],
-    "visita_terreno_fecha": "25-05-2026 10:00"
+    ]
   },
   {
     "id": "5663-2-O126",
@@ -1382,10 +1382,10 @@
     "categoria_display": "Resultados",
     "n_grupo": 5,
     "visita_terreno": "Obligatoria",
+    "visita_terreno_fecha": "08-09-2026 11:00",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
-    "oferentes": [],
-    "visita_terreno_fecha": "08-09-2026 11:00"
+    "oferentes": []
   },
   {
     "id": "2794-18-LP26",
@@ -1495,7 +1495,7 @@
     "fadjudicacion_raw": "20-10-2026 15:07",
     "fadjudicacion_iso": "2026-10-20T15:07:00",
     "categoria_display": "Resultados",
-    "n_grupo": 7,
+    "n_grupo": 8,
     "visita_terreno": "No exige",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
@@ -1532,8 +1532,8 @@
     "fapertura_economica_iso": "2026-10-15T09:00:00",
     "fadjudicacion_raw": "15-12-2026 10:00",
     "fadjudicacion_iso": "2026-12-15T10:00:00",
-    "categoria_display": "Apertura Oferta Económica",
-    "n_grupo": 1,
+    "categoria_display": "Resultados",
+    "n_grupo": 7,
     "visita_terreno": "No exige",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
@@ -1571,7 +1571,7 @@
     "fadjudicacion_raw": "16-12-2026 12:00",
     "fadjudicacion_iso": "2026-12-16T12:00:00",
     "categoria_display": "Apertura Oferta Económica",
-    "n_grupo": 2,
+    "n_grupo": 1,
     "visita_terreno": "No exige",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
@@ -1609,7 +1609,7 @@
     "fadjudicacion_raw": "17-12-2026 15:00",
     "fadjudicacion_iso": "2026-12-17T15:00:00",
     "categoria_display": "Apertura Oferta Económica",
-    "n_grupo": 3,
+    "n_grupo": 2,
     "visita_terreno": "No exige",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
@@ -1647,7 +1647,7 @@
     "fadjudicacion_raw": "18-12-2026 12:00",
     "fadjudicacion_iso": "2026-12-18T12:00:00",
     "categoria_display": "Apertura Oferta Económica",
-    "n_grupo": 4,
+    "n_grupo": 3,
     "visita_terreno": "No exige",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
@@ -1685,7 +1685,7 @@
     "fadjudicacion_raw": "18-12-2026 12:00",
     "fadjudicacion_iso": "2026-12-18T12:00:00",
     "categoria_display": "Apertura Oferta Económica",
-    "n_grupo": 5,
+    "n_grupo": 4,
     "visita_terreno": "No exige",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
@@ -1723,7 +1723,7 @@
     "fadjudicacion_raw": "18-12-2026 13:00",
     "fadjudicacion_iso": "2026-12-18T13:00:00",
     "categoria_display": "Apertura Oferta Económica",
-    "n_grupo": 6,
+    "n_grupo": 5,
     "visita_terreno": "No exige",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
@@ -1951,7 +1951,7 @@
     "fadjudicacion_raw": "28-10-2026 15:00",
     "fadjudicacion_iso": "2026-10-28T15:00:00",
     "categoria_display": "Resultados",
-    "n_grupo": 8,
+    "n_grupo": 9,
     "visita_terreno": "No exige",
     "aplicamos": false,
     "resultado_hdg": "Pendiente",
